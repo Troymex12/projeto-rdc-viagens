@@ -1,0 +1,337 @@
+<div class="admin-layout">
+  <app-admin-sidebar [active]="activeSection" (nav)="activeSection = $event" />
+
+  <main class="admin-main">
+
+    <!-- Top Bar -->
+    <div class="admin-topbar">
+      <div class="breadcrumb">
+        <span>Admin</span>
+        <rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" />
+        <span class="breadcrumb-active">{{ sectionTitle }}</span>
+      </div>
+      <div class="topbar-right">
+        <rdc-input leadingIcon="search" placeholder="Buscar…" />
+        <div class="avatar-circle">CA</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-content">
+
+      <!-- ===== DASHBOARD ===== -->
+      @if (activeSection === 'dash') {
+        <div class="page-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p class="page-sub">Visão geral · últimos 30 dias</p>
+          </div>
+          <div class="page-actions">
+            <rdc-button variant="ghost" size="sm" leadingIcon="calendar">Abr 2026</rdc-button>
+            <rdc-button variant="primary" size="sm" leadingIcon="plus">Nova ação</rdc-button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          @for (m of metrics; track m.label) {
+            <app-admin-metric-card [label]="m.label" [value]="m.value" [delta]="m.delta" [deltaPos]="m.deltaPos" [icon]="m.icon" />
+          }
+        </div>
+
+        <div class="charts-grid">
+          <div class="card">
+            <div class="card-header">
+              <h4>Receita últimos 12 meses</h4>
+              <rdc-badge variant="success">↑ 18% YoY</rdc-badge>
+            </div>
+            <app-spark-chart />
+          </div>
+          <div class="card">
+            <h4 class="mix-title">Mix de planos</h4>
+            @for (p of planMix; track p.name) {
+              <div class="mix-row">
+                <div class="mix-labels"><span>{{ p.name }}</span><span class="mix-pct">{{ p.pct }}%</span></div>
+                <div class="mix-bar-bg"><div class="mix-bar-fill" [style.width.%]="p.pct" [style.background]="p.color"></div></div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="card card-flush">
+          <div class="table-header">
+            <h4>Últimos usuários</h4>
+            <rdc-button variant="link" trailingIcon="arrowRight" (onClick)="activeSection = 'users'">Ver todos</rdc-button>
+          </div>
+          <table class="admin-table">
+            <thead><tr>@for (col of ['Usuário','E-mail','Plano','Status','Desde','']; track col) { <th>{{ col }}</th> }</tr></thead>
+            <tbody>
+              @for (u of users.slice(0,4); track u.email) {
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar">{{ initials(u.name) }}</div><span>{{ u.name }}</span></div></td>
+                  <td class="email-cell">{{ u.email }}</td>
+                  <td><rdc-badge [variant]="u.plan === 'Superior' ? 'superior' : 'gold'" icon="star">{{ u.plan }}</rdc-badge></td>
+                  <td><rdc-badge [variant]="statusVariant(u.status)">{{ u.status }}</rdc-badge></td>
+                  <td class="since-cell">{{ u.since }}</td>
+                  <td class="action-cell"><rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" /></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- ===== USUÁRIOS ===== -->
+      @if (activeSection === 'users') {
+        <div class="page-header">
+          <div><h2>Usuários</h2><p class="page-sub">{{ users.length }} assinantes cadastrados</p></div>
+          <div class="page-actions">
+            <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+            <rdc-button variant="primary" size="sm" leadingIcon="plus">Novo usuário</rdc-button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <rdc-input leadingIcon="search" placeholder="Buscar por nome ou e-mail…" [(value)]="userSearch" />
+          <rdc-button variant="ghost" size="sm">Todos os planos</rdc-button>
+          <rdc-button variant="ghost" size="sm">Todos os status</rdc-button>
+        </div>
+
+        <div class="card card-flush">
+          <table class="admin-table">
+            <thead>
+              <tr>@for (col of ['Usuário','E-mail','Plano','Status','Desde','Ações']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (u of filteredUsers; track u.email) {
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar">{{ initials(u.name) }}</div><span>{{ u.name }}</span></div></td>
+                  <td class="email-cell">{{ u.email }}</td>
+                  <td><rdc-badge [variant]="u.plan === 'Superior' ? 'superior' : 'gold'" icon="star">{{ u.plan }}</rdc-badge></td>
+                  <td><rdc-badge [variant]="statusVariant(u.status)">{{ u.status }}</rdc-badge></td>
+                  <td class="since-cell">{{ u.since }}</td>
+                  <td class="action-cell">
+                    <div class="row-actions">
+                      <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+                      <rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" />
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          @if (filteredUsers.length === 0) {
+            <div class="empty-table">Nenhum usuário encontrado.</div>
+          }
+        </div>
+      }
+
+      <!-- ===== PLANOS ===== -->
+      @if (activeSection === 'plans') {
+        <div class="page-header">
+          <div><h2>Planos</h2><p class="page-sub">Gerencie os planos de assinatura</p></div>
+          <rdc-button variant="primary" size="sm" leadingIcon="plus">Novo plano</rdc-button>
+        </div>
+
+        <div class="plans-grid">
+          @for (p of planos; track p.nome) {
+            <div class="card plan-card">
+              <div class="plan-top">
+                <span class="plan-nome" [style.color]="p.cor">{{ p.nome }}</span>
+                <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+              </div>
+              <div class="plan-preco">{{ p.preco }}</div>
+              <div class="plan-stats">
+                <div class="plan-stat">
+                  <div class="ps-value">{{ p.assinantes.toLocaleString('pt-BR') }}</div>
+                  <div class="ps-label">Assinantes</div>
+                </div>
+                @if (p.noites > 0) {
+                  <div class="plan-stat">
+                    <div class="ps-value">{{ p.noites }}</div>
+                    <div class="ps-label">Noites/ano</div>
+                  </div>
+                }
+                <div class="plan-stat">
+                  <div class="ps-value">{{ p.pts }}</div>
+                  <div class="ps-label">Pontos</div>
+                </div>
+              </div>
+              <div class="plan-bar-bg">
+                <div class="plan-bar-fill" [style.background]="p.cor" [style.width.%]="(p.assinantes / 38412) * 100"></div>
+              </div>
+              <div class="plan-pct-label">{{ ((p.assinantes / 38412) * 100).toFixed(1) }}% do total</div>
+            </div>
+          }
+        </div>
+
+        <div class="card">
+          <h4 class="section-label-admin">Configurações gerais de pontos</h4>
+          <div class="config-grid">
+            <div class="config-item"><span class="config-key">Pontos por reserva</span><span class="config-val">200 pts por noite</span></div>
+            <div class="config-item"><span class="config-key">Renovação mensal</span><span class="config-val">Automática via cartão</span></div>
+            <div class="config-item"><span class="config-key">Expiração de noites</span><span class="config-val">Anual (ciclo do plano)</span></div>
+            <div class="config-item"><span class="config-key">Período de carência</span><span class="config-val">7 dias após cancelamento</span></div>
+          </div>
+        </div>
+      }
+
+      <!-- ===== HOTÉIS ===== -->
+      @if (activeSection === 'hotels') {
+        <div class="page-header">
+          <div><h2>Hotéis</h2><p class="page-sub">{{ hotels.length }} propriedades cadastradas</p></div>
+          <div class="page-actions">
+            <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+            <rdc-button variant="primary" size="sm" leadingIcon="plus">Adicionar hotel</rdc-button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <rdc-input leadingIcon="search" placeholder="Buscar por nome ou cidade…" [(value)]="hotelSearch" />
+          <rdc-button variant="ghost" size="sm">Todos os status</rdc-button>
+        </div>
+
+        <div class="card card-flush">
+          <table class="admin-table">
+            <thead>
+              <tr>@for (col of ['Hotel','Cidade','Estrelas','Reservas','Status','Ações']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (h of filteredHotels; track h.name) {
+                <tr>
+                  <td class="hotel-name-cell">{{ h.name }}</td>
+                  <td class="since-cell">{{ h.cidade }}</td>
+                  <td class="stars-cell">{{ stars(h.estrelas) }}</td>
+                  <td>{{ h.reservas }}</td>
+                  <td><rdc-badge [variant]="hotelStatusVariant(h.status)">{{ h.status }}</rdc-badge></td>
+                  <td class="action-cell">
+                    <div class="row-actions">
+                      <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+                      <rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" />
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- ===== RESERVAS ===== -->
+      @if (activeSection === 'res') {
+        <div class="page-header">
+          <div><h2>Reservas</h2><p class="page-sub">{{ reservas.length }} reservas no período</p></div>
+          <div class="page-actions">
+            <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+            <rdc-button variant="ghost" size="sm" leadingIcon="calendar">Filtrar período</rdc-button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <rdc-input leadingIcon="search" placeholder="Buscar por hóspede, hotel ou ID…" [(value)]="resSearch" />
+          <rdc-button variant="ghost" size="sm">Todos os status</rdc-button>
+        </div>
+
+        <div class="card card-flush">
+          <table class="admin-table">
+            <thead>
+              <tr>@for (col of ['ID','Hóspede','Hotel','Datas','Noites','Status','Valor']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (r of filteredReservas; track r.id) {
+                <tr>
+                  <td class="email-cell">{{ r.id }}</td>
+                  <td><div class="user-cell"><div class="user-avatar">{{ initials(r.guest) }}</div><span>{{ r.guest }}</span></div></td>
+                  <td>{{ r.hotel }}</td>
+                  <td class="since-cell">{{ r.datas }}</td>
+                  <td>{{ r.noites }}</td>
+                  <td><rdc-badge [variant]="resStatusVariant(r.status)">{{ r.status }}</rdc-badge></td>
+                  <td><strong>{{ r.valor }}</strong></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- ===== FINANCEIRO ===== -->
+      @if (activeSection === 'finance') {
+        <div class="page-header">
+          <div><h2>Financeiro</h2><p class="page-sub">Receitas e repasses · Mai 2026</p></div>
+          <div class="page-actions">
+            <rdc-button variant="ghost" size="sm" leadingIcon="calendar">Mai 2026</rdc-button>
+            <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar DRE</rdc-button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          @for (m of finMetrics; track m.label) {
+            <app-admin-metric-card [label]="m.label" [value]="m.value" [delta]="m.delta" [deltaPos]="m.deltaPos" [icon]="m.icon" />
+          }
+        </div>
+
+        <div class="card card-flush">
+          <div class="table-header">
+            <h4>Lançamentos</h4>
+            <rdc-button variant="ghost" size="sm">Ver todos os meses</rdc-button>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>@for (col of ['Data','Descrição','Tipo','Valor']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (l of finLancamentos; track l.desc) {
+                <tr>
+                  <td class="since-cell">{{ l.data }}</td>
+                  <td>{{ l.desc }}</td>
+                  <td><rdc-badge [variant]="l.tipo === 'entrada' ? 'success' : 'error'">{{ l.tipo === 'entrada' ? 'Entrada' : 'Saída' }}</rdc-badge></td>
+                  <td [style.color]="l.tipo === 'entrada' ? '#10B981' : '#EF4444'" style="font-weight:700">{{ l.valor }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- ===== CONTEÚDO ===== -->
+      @if (activeSection === 'cms') {
+        <div class="page-header">
+          <div><h2>Conteúdo</h2><p class="page-sub">Banners, destinos, blog e FAQ</p></div>
+          <rdc-button variant="primary" size="sm" leadingIcon="plus">Novo conteúdo</rdc-button>
+        </div>
+
+        <div class="cms-tabs">
+          <div class="cms-tab cms-tab-active">Todos</div>
+          <div class="cms-tab">Banners</div>
+          <div class="cms-tab">Destinos</div>
+          <div class="cms-tab">Blog</div>
+          <div class="cms-tab">FAQ</div>
+        </div>
+
+        <div class="card card-flush">
+          <table class="admin-table">
+            <thead>
+              <tr>@for (col of ['Tipo','Título','Status','Atualizado','Ações']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (c of cmsItens; track c.titulo) {
+                <tr>
+                  <td><rdc-badge variant="neutral">{{ c.tipo }}</rdc-badge></td>
+                  <td style="font-weight:500">{{ c.titulo }}</td>
+                  <td><rdc-badge [variant]="c.status === 'Publicado' ? 'success' : 'warn'">{{ c.status }}</rdc-badge></td>
+                  <td class="since-cell">{{ c.atualizado }}</td>
+                  <td class="action-cell">
+                    <div class="row-actions">
+                      <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+                      <rdc-button variant="link" size="sm">Visualizar</rdc-button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+    </div>
+  </main>
+</div>

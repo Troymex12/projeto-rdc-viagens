@@ -1,0 +1,9 @@
+<div class="res-row">
+  <div class="res-thumb" [style.backgroundImage]="'url(' + reservation.image + ')'"></div>
+  <div class="res-info">
+    <div class="res-name">{{ reservation.name }}</div>
+    <div class="res-meta">{{ reservation.location }} · {{ reservation.dates }}</div>
+  </div>
+  <rdc-badge [variant]="badgeVariant">{{ reservation.status }}</rdc-badge>
+  <rdc-button variant="ghost" size="sm" trailingIcon="chevronRight">Detalhes</rdc-button>
+</div>

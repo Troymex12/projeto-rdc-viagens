@@ -1,0 +1,91 @@
+:host { display: block; cursor: pointer; }
+
+.hotel-photo {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 16px 16px 0 0;
+}
+
+.hotel-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms;
+
+  &:hover { background: #fff; }
+}
+
+.hotel-info {
+  padding: 16px 18px 18px;
+}
+
+.hotel-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.rating-value {
+  color: #1A1A1A;
+  font-weight: 600;
+}
+
+.hotel-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.hotel-location {
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 14px;
+}
+
+.hotel-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.hotel-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #0A2540;
+}
+
+.hotel-price-unit {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  margin-left: 4px;
+}
+
+.hotel-nights {
+  font-size: 12px;
+  color: #008F8F;
+  font-weight: 600;
+}

@@ -1,0 +1,49 @@
+.metric-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.06), 0 2px 4px rgba(10,37,64,0.04);
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric-body { display: flex; flex-direction: column; }
+
+.metric-label {
+  font-size: 12px;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+}
+
+.metric-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0A2540;
+  margin-top: 6px;
+  letter-spacing: -.02em;
+}
+
+.metric-delta {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.delta-pos { color: #10B981; }
+.delta-neg { color: #EF4444; }
+
+.metric-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #E8EFF7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

@@ -1,0 +1,81 @@
+<app-navbar active="planos" />
+<app-hero />
+<app-trust-strip />
+
+<!-- Planos -->
+<section class="section" style="padding-top: 64px; background: var(--rdc-gray-50);">
+  <div class="section-inner">
+    <div class="section-row-header">
+      <div>
+        <h2 style="margin: 0 0 6px;">Planos feitos para o seu estilo de viagem</h2>
+        <p style="color: #6B7280; margin: 0;">De refúgios econômicos a experiências ultra-exclusivas.</p>
+      </div>
+      <rdc-button variant="link" trailingIcon="arrowRight" routerLink="/planos">Comparar todos os planos</rdc-button>
+    </div>
+    
+    <div class="plans-grid">
+      <app-plan-card tier="Gold" [price]="199" period="mês" [perks]="['7 Noites inclusas', '+1.200 Hotéis', 'Pontos acumulativos']" />
+      <app-plan-card tier="Superior" [price]="349" period="mês" [perks]="['14 Noites inclusas', 'Upgrade de quarto', 'Concierge 24h']" [highlighted]="true" />
+      <app-plan-card tier="Black" [price]="599" period="mês" [perks]="['21 Noites inclusas', 'Hotéis 5 estrelas Superior', 'Sala VIP Ilimitada']" />
+    </div>
+  </div>
+</section>
+
+<!-- Destinos -->
+<section class="section section-white" style="padding-top: 64px;">
+  <div class="section-inner">
+    <div class="section-row-header">
+      <div>
+        <h2 style="margin: 0 0 6px;">Destinos em alta</h2>
+        <p style="color: #6B7280; margin: 0;">Onde nossos assinantes estão indo agora.</p>
+      </div>
+      <rdc-button variant="link" trailingIcon="arrowRight">Ver todos os destinos</rdc-button>
+    </div>
+    <div class="destinations-grid">
+      @for (d of destinations; track d.name) {
+        <app-destination-tile [image]="d.image" [name]="d.name" [hotels]="d.hotels" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Hotéis -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-row-header">
+      <div>
+        <h2 style="margin: 0 0 6px;">Hotéis em destaque</h2>
+        <p style="color: #6B7280; margin: 0;">Propriedades selecionadas pelo time de curadoria RDC.</p>
+      </div>
+      <rdc-button variant="link" trailingIcon="arrowRight">Ver todos os hotéis</rdc-button>
+    </div>
+    <div class="hotels-grid">
+      @for (h of hotels; track h.name) {
+        <app-hotel-card
+          [image]="h.image"
+          [name]="h.name"
+          [location]="h.location"
+          [rating]="h.rating"
+          [reviews]="h.reviews"
+          [price]="h.price"
+          [nights]="h.nights"
+          [badge]="h.badge"
+          [favorited]="h.favorited"
+        />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-cta">
+  <div class="section-inner cta-inner">
+    <h2 class="cta-title">Pronto para sua próxima viagem?</h2>
+    <p class="cta-subtitle">
+      Assine hoje e comece a viajar ainda este mês. Cancelamento em um clique, sem perguntas.
+    </p>
+    <rdc-button variant="primary" size="lg" trailingIcon="arrowRight">Começar agora</rdc-button>
+  </div>
+</section>
+
+<app-footer />

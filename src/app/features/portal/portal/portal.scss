@@ -1,0 +1,485 @@
+.portal-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--rdc-gray-50);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--rdc-font-sans);
+}
+
+/* Floating Blobs */
+.floating-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.15;
+  pointer-events: none;
+
+  &--1 {
+    width: 600px;
+    height: 600px;
+    background: var(--rdc-primary-400);
+    top: -200px;
+    right: -100px;
+    animation: float 20s infinite alternate var(--rdc-ease-in-out);
+  }
+
+  &--2 {
+    width: 500px;
+    height: 500px;
+    background: var(--rdc-accent-400);
+    bottom: -150px;
+    left: -100px;
+    animation: float 25s infinite alternate-reverse var(--rdc-ease-in-out);
+  }
+}
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(40px, 60px) scale(1.1); }
+}
+
+.portal-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.portal-content {
+  padding: var(--rdc-space-8);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--rdc-space-6);
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* KPIs */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--rdc-space-4);
+}
+
+/* Home 2-col */
+.home-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--rdc-space-6);
+  align-items: start;
+}
+
+/* Glass Card */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--rdc-radius-2xl);
+  padding: var(--rdc-space-6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--rdc-space-4);
+
+  h4 {
+    font-family: var(--rdc-font-display);
+    font-weight: var(--rdc-fw-bold);
+    font-size: var(--rdc-text-lg);
+    color: var(--rdc-primary-900);
+    margin: 0;
+  }
+}
+
+/* Quick Actions */
+.quick-title {
+  font-family: var(--rdc-font-display);
+  font-weight: var(--rdc-fw-bold);
+  font-size: var(--rdc-text-lg);
+  color: var(--rdc-primary-900);
+  margin: 0 0 var(--rdc-space-4);
+}
+
+.quick-actions {
+  display: grid;
+  gap: var(--rdc-space-3);
+}
+
+.quick-btn {
+  ::ng-deep button { justify-content: flex-start; width: 100%; }
+}
+
+/* Hotels Grid */
+.portal-hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--rdc-space-4);
+}
+
+.portal-hotels-cta {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--rdc-space-4);
+}
+
+/* Alert Info */
+.alert-info {
+  display: flex;
+  gap: var(--rdc-space-4);
+  padding: var(--rdc-space-4) var(--rdc-space-5);
+  border-radius: var(--rdc-radius-xl);
+  background: var(--rdc-primary-50);
+  color: var(--rdc-primary-800);
+  align-items: center;
+  border: 1px solid var(--rdc-primary-100);
+}
+
+.alert-title {
+  font-weight: var(--rdc-fw-bold);
+  font-size: var(--rdc-text-sm);
+}
+
+.alert-body {
+  font-size: var(--rdc-text-xs);
+  opacity: 0.8;
+}
+
+/* Tabs */
+.res-tabs {
+  display: flex;
+  gap: var(--rdc-space-2);
+  margin-bottom: var(--rdc-space-5);
+  background: var(--rdc-gray-100);
+  padding: var(--rdc-space-1);
+  border-radius: var(--rdc-radius-full);
+  width: fit-content;
+}
+
+.res-tab {
+  padding: var(--rdc-space-2) var(--rdc-space-5);
+  border-radius: var(--rdc-radius-full);
+  color: var(--rdc-gray-500);
+  font-weight: var(--rdc-fw-semibold);
+  font-size: var(--rdc-text-xs);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover { color: var(--rdc-primary-700); }
+
+  &.res-tab-active {
+    background: var(--rdc-white);
+    color: var(--rdc-primary-900);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Finance Table */
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-size: var(--rdc-text-xs);
+    font-weight: var(--rdc-fw-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--rdc-ls-widest);
+    color: var(--rdc-gray-400);
+    padding: var(--rdc-space-3);
+    border-bottom: 1px solid var(--rdc-gray-100);
+  }
+
+  td {
+    padding: var(--rdc-space-4) var(--rdc-space-3);
+    border-bottom: 1px solid var(--rdc-gray-50);
+    font-size: var(--rdc-text-sm);
+  }
+}
+
+/* Profile */
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--rdc-radius-full);
+  background: linear-gradient(135deg, var(--rdc-primary-500), var(--rdc-primary-900));
+  color: var(--rdc-white);
+  font-weight: var(--rdc-fw-extrabold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--rdc-text-xl);
+}
+
+.profile-name {
+  font-family: var(--rdc-font-display);
+  font-size: var(--rdc-text-xl);
+  font-weight: var(--rdc-fw-bold);
+  color: var(--rdc-primary-900);
+}
+
+.profile-meta {
+  font-size: var(--rdc-text-sm);
+  color: var(--rdc-gray-500);
+  margin-top: var(--rdc-space-1);
+}
+
+/* Nights Section */
+.nights-progress-wrap { margin: var(--rdc-space-2) 0 var(--rdc-space-6); }
+
+.nights-progress-bar {
+  height: 10px;
+  background: var(--rdc-gray-100);
+  border-radius: var(--rdc-radius-full);
+  overflow: hidden;
+  margin-bottom: var(--rdc-space-2);
+}
+
+.nights-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rdc-primary-400), var(--rdc-primary-800));
+  border-radius: var(--rdc-radius-full);
+  transition: width 0.8s var(--rdc-ease-out);
+}
+
+.nights-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--rdc-text-xs);
+  color: var(--rdc-gray-500);
+  font-weight: var(--rdc-fw-semibold);
+}
+
+.nights-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-3);
+  padding: var(--rdc-space-3) var(--rdc-space-4);
+  background: var(--rdc-primary-50);
+  border-radius: var(--rdc-radius-lg);
+  font-size: var(--rdc-text-sm);
+  color: var(--rdc-primary-800);
+  margin-bottom: var(--rdc-space-6);
+  border: 1px solid var(--rdc-primary-100);
+}
+
+.section-divider {
+  font-size: 11px;
+  font-weight: var(--rdc-fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--rdc-ls-widest);
+  color: var(--rdc-gray-400);
+  padding: var(--rdc-space-4) 0 var(--rdc-space-2);
+  border-top: 1px solid var(--rdc-gray-100);
+  margin-top: var(--rdc-space-2);
+}
+
+.nights-row {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-4);
+  padding: var(--rdc-space-4) 0;
+  border-bottom: 1px solid var(--rdc-gray-50);
+
+  &:last-child { border-bottom: none; }
+}
+
+.nights-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--rdc-radius-lg);
+  background: var(--rdc-primary-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--rdc-primary-600);
+}
+
+.nights-info { flex: 1; }
+.nights-hotel { font-size: var(--rdc-text-sm); font-weight: var(--rdc-fw-bold); color: var(--rdc-gray-900); }
+.nights-local { font-size: var(--rdc-text-xs); color: var(--rdc-gray-500); margin-top: 2px; }
+.nights-used  { font-size: var(--rdc-text-sm); font-weight: var(--rdc-fw-bold); color: var(--rdc-error-500); }
+
+.nights-cta-card {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-6);
+  background: linear-gradient(135deg, var(--rdc-secondary-50), var(--rdc-primary-50));
+  border: 1px solid var(--rdc-primary-100);
+}
+
+.nights-cta-title { font-size: var(--rdc-text-md); font-weight: var(--rdc-fw-bold); color: var(--rdc-primary-900); }
+.nights-cta-sub   { font-size: var(--rdc-text-sm); color: var(--rdc-gray-500); margin-top: 4px; }
+
+/* Points Section */
+.points-layout {
+  display: flex;
+  gap: var(--rdc-space-6);
+  align-items: flex-start;
+}
+
+.extrato-row {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-4);
+  padding: var(--rdc-space-4) 0;
+  border-bottom: 1px solid var(--rdc-gray-50);
+
+  &:last-child { border-bottom: none; }
+}
+
+.extrato-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--rdc-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.credito { background: var(--rdc-success-100); transform: rotate(-90deg); }
+  &.debito  { background: var(--rdc-error-100); transform: rotate(90deg); }
+}
+
+.extrato-info { flex: 1; }
+.extrato-desc { font-size: var(--rdc-text-sm); color: var(--rdc-gray-900); font-weight: var(--rdc-fw-semibold); }
+.extrato-mes  { font-size: var(--rdc-text-xs); color: var(--rdc-gray-400); margin-top: 2px; }
+
+.extrato-pts {
+  font-size: var(--rdc-text-sm);
+  font-weight: var(--rdc-fw-bold);
+  &.credito { color: var(--rdc-success-500); }
+  &.debito  { color: var(--rdc-error-500); }
+}
+
+.resgate-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rdc-space-4);
+  background: var(--rdc-white);
+  border: 1px solid var(--rdc-gray-100);
+  border-radius: var(--rdc-radius-xl);
+  margin-bottom: var(--rdc-space-3);
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--rdc-primary-200);
+    box-shadow: var(--rdc-shadow-md);
+    transform: translateX(4px);
+  }
+}
+
+.resgate-label { font-size: var(--rdc-text-sm); font-weight: var(--rdc-fw-bold); color: var(--rdc-primary-900); }
+.resgate-desc { font-size: 11px; color: var(--rdc-gray-500); margin-top: 2px; }
+
+/* Finance Section */
+.finance-layout {
+  display: flex;
+  gap: var(--rdc-space-6);
+  align-items: flex-start;
+}
+
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: var(--rdc-fw-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--rdc-ls-widest);
+    color: var(--rdc-gray-400);
+    padding: var(--rdc-space-3) var(--rdc-space-4);
+    border-bottom: 1px solid var(--rdc-gray-100);
+  }
+
+  td {
+    padding: var(--rdc-space-4);
+    border-bottom: 1px solid var(--rdc-gray-50);
+    font-size: var(--rdc-text-sm);
+    color: var(--rdc-gray-900);
+  }
+
+  tr:last-child td { border-bottom: none; }
+}
+
+.f-mes { font-weight: var(--rdc-fw-bold); }
+.f-valor { font-weight: var(--rdc-fw-bold); color: var(--rdc-primary-900); }
+
+.plan-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--rdc-space-6);
+}
+
+.plan-badge-gold {
+  background: var(--rdc-superior-gradient);
+  color: var(--rdc-white);
+  padding: 6px 16px;
+  border-radius: var(--rdc-radius-pill);
+  font-size: 11px;
+  font-weight: var(--rdc-fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--rdc-ls-wide);
+  box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+}
+
+.plan-price {
+  font-family: var(--rdc-font-display);
+  font-size: var(--rdc-text-2xl);
+  font-weight: var(--rdc-fw-extrabold);
+  color: var(--rdc-primary-900);
+  span { font-size: 13px; color: var(--rdc-gray-400); font-weight: var(--rdc-fw-medium); }
+}
+
+.plan-detail-row {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-3);
+  font-size: var(--rdc-text-sm);
+  color: var(--rdc-gray-500);
+  margin-bottom: var(--rdc-space-2);
+}
+
+.card-pay {
+  display: flex;
+  align-items: center;
+  gap: var(--rdc-space-4);
+  padding: var(--rdc-space-4);
+  background: var(--rdc-gray-50);
+  border: 1px solid var(--rdc-gray-100);
+  border-radius: var(--rdc-radius-lg);
+  margin-bottom: var(--rdc-space-4);
+}
+
+.card-pay-title { font-size: var(--rdc-text-sm); font-weight: var(--rdc-fw-bold); color: var(--rdc-gray-900); }
+.card-pay-exp { font-size: 11px; color: var(--rdc-gray-500); margin-top: 2px; }
+
+/* Responsiveness */
+@media (max-width: 1200px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .portal-hotels-grid { grid-template-columns: repeat(2, 1fr); }
+  .points-layout, .finance-layout { flex-direction: column; }
+  .resgates-card, .finance-layout aside { width: 100% !important; }
+}
+
+@media (max-width: 768px) {
+  .home-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .portal-content { padding: var(--rdc-space-4); }
+  .profile-grid { grid-template-columns: 1fr; }
+  .nights-cta-card { flex-direction: column; text-align: center; }
+}

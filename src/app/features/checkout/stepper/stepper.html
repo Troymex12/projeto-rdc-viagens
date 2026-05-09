@@ -1,0 +1,17 @@
+<div class="stepper">
+  @for (label of steps; track label; let i = $index) {
+    <div class="step" [class]="'step-' + getState(i)">
+      <div class="step-circle">
+        @if (getState(i) === 'done') {
+          <rdc-icon name="check" [size]="14" color="#fff" [strokeWidth]="3" />
+        } @else {
+          {{ i + 1 }}
+        }
+      </div>
+      <span class="step-label">{{ label }}</span>
+    </div>
+    @if (i < steps.length - 1) {
+      <div class="connector" [class.connector-done]="isConnectorDone(i)"></div>
+    }
+  }
+</div>

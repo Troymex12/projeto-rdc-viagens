@@ -1,0 +1,31 @@
+<div class="summary-card">
+  <div class="summary-label">Resumo do pedido</div>
+  <div class="summary-header">
+    <div class="summary-plan-name">Plano {{ plan.tier }}</div>
+    <rdc-badge [variant]="plan.tier === 'Gold' ? 'gold' : 'superior'" icon="star">{{ plan.tier }}</rdc-badge>
+  </div>
+
+  <div class="summary-rows">
+    <div class="summary-row">
+      <span class="row-label">Mensalidade</span>
+      <span class="row-value">R$ {{ plan.price }},00</span>
+    </div>
+    <div class="summary-row">
+      <span class="row-label">Noites inclusas</span>
+      <span class="row-value">{{ plan.nights }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="row-label">Pontos inclusos</span>
+      <span class="row-value">{{ plan.points }} pts</span>
+    </div>
+  </div>
+
+  <div class="summary-total">
+    <span class="total-label">Total hoje</span>
+    <span class="total-value">R$ {{ plan.price }},00</span>
+  </div>
+
+  <rdc-alert variant="info" title="Garantia 7 dias">
+    Cancele em até 7 dias e receba 100% de volta.
+  </rdc-alert>
+</div>

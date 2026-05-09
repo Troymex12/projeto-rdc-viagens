@@ -1,0 +1,76 @@
+<app-navbar active="blog"></app-navbar>
+
+<main class="blog-page">
+  <!-- Blog Hero Section -->
+  <section class="blog-hero">
+    <div class="floating-blob floating-blob--1"></div>
+    <div class="floating-blob floating-blob--2"></div>
+
+    <div class="container hero-container">
+      <div class="hero-content">
+        <rdc-badge variant="new" icon="sparkles">Novidades</rdc-badge>
+        <h1 class="hero-title">
+          Inspirações para sua <span>próxima jornada.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Dicas de destinos, roteiros exclusivos e tudo o que você precisa saber para viajar mais e melhor com a RDC.
+        </p>
+      </div>
+
+      <!-- Featured Post Card -->
+      <div class="featured-card-wrap">
+        <article class="featured-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506929113675-b9293d6197bf?w=800&auto=format&fit=crop" alt="Destino em destaque">
+            <rdc-badge variant="superior" class="category-badge">Destinos</rdc-badge>
+          </div>
+          <div class="card-body">
+            <span class="post-date">07 de Maio, 2026</span>
+            <h3>As 5 praias mais exclusivas do Nordeste para conhecer este ano</h3>
+            <p>Descubra refúgios escondidos onde o luxo encontra a natureza em sua forma mais pura...</p>
+            <rdc-button variant="ghost" size="sm" trailingIcon="arrowRight">Ler artigo completo</rdc-button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Grid Section -->
+  <section class="blog-grid-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="tabs">
+          <button class="tab active">Todos</button>
+          <button class="tab">Destinos</button>
+          <button class="tab">Dicas</button>
+          <button class="tab">RDC News</button>
+        </div>
+      </div>
+
+      <div class="posts-grid">
+        <article class="post-card" *ngFor="let post of posts">
+          <div class="post-image">
+            <img [src]="post.image" [alt]="post.title">
+          </div>
+          <div class="post-content">
+            <span class="post-category">{{ post.category }}</span>
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.excerpt }}</p>
+            <div class="post-footer">
+              <span class="read-time">{{ post.readTime }} min de leitura</span>
+              <button class="read-more">
+                <rdc-icon name="plus" [size]="16"></rdc-icon>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="pagination">
+        <rdc-button variant="ghost" size="md">Carregar mais posts</rdc-button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

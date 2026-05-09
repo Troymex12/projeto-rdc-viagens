@@ -1,0 +1,148 @@
+<app-navbar active="planos"></app-navbar>
+
+<main class="plans-page">
+  <!-- Plans Hero -->
+  <section class="plans-hero">
+    <div class="floating-blob floating-blob--1"></div>
+    <div class="floating-blob floating-blob--2"></div>
+
+    <div class="container hero-container">
+      <div class="hero-content text-center">
+        <rdc-badge variant="gold" icon="crown">Exclusividade RDC</rdc-badge>
+        <h1 class="hero-title">
+          O plano perfeito para o seu <span>próximo destino.</span>
+        </h1>
+        <p class="hero-subtitle mx-auto">
+          Assine hoje e garanta noites em hotéis de luxo, pontos que nunca expiram e experiências que dinheiro nenhum compra.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans Grid -->
+  <section class="plans-grid-section">
+    <div class="container">
+      <div class="plans-grid">
+        <!-- Plan Gold -->
+        <div class="plan-card plan-card--gold">
+          <div class="plan-header">
+            <rdc-badge variant="promo">Mais Popular</rdc-badge>
+            <h3>Plano Gold</h3>
+            <div class="plan-price">
+              <span class="currency">R$</span>
+              <span class="amount">199</span>
+              <span class="period">/mês</span>
+            </div>
+            <p>Ideal para casais e pequenas famílias que buscam conforto.</p>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> 7 Noites inclusas por ano</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> +1.200 Hotéis conveniados</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Pontos acumulativos</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Desconto em passagens</li>
+            </ul>
+            <rdc-button variant="primary" size="lg" (onClick)="selectPlan('gold')">Assinar Gold</rdc-button>
+          </div>
+        </div>
+
+        <!-- Plan Platinum -->
+        <div class="plan-card plan-card--platinum">
+          <div class="plan-header">
+            <rdc-badge variant="superior">Alta Performance</rdc-badge>
+            <h3>Plano Platinum</h3>
+            <div class="plan-price">
+              <span class="currency">R$</span>
+              <span class="amount">349</span>
+              <span class="period">/mês</span>
+            </div>
+            <p>Para quem não abre mão de sofisticação e benefícios VIP.</p>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> 14 Noites inclusas por ano</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Upgrade de quarto garantido</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Concierge 24h dedicado</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Acesso a salas VIP (4/ano)</li>
+            </ul>
+            <rdc-button variant="secondary" size="lg" (onClick)="selectPlan('platinum')">Assinar Platinum</rdc-button>
+          </div>
+        </div>
+
+        <!-- Plan Black -->
+        <div class="plan-card plan-card--black">
+          <div class="plan-header">
+            <rdc-badge variant="gold">Unlimited Luxury</rdc-badge>
+            <h3>Plano Black</h3>
+            <div class="plan-price">
+              <span class="currency">R$</span>
+              <span class="amount">599</span>
+              <span class="period">/mês</span>
+            </div>
+            <p>A experiência definitiva em hospitalidade e exclusividade.</p>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> 21 Noites inclusas por ano</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Hotéis 5 estrelas Superior</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Sala VIP Ilimitada</li>
+              <li><rdc-icon name="check" [size]="18"></rdc-icon> Seguro viagem global incluso</li>
+            </ul>
+            <rdc-button variant="primary" size="lg" (onClick)="selectPlan('black')">Assinar Black</rdc-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Compare os detalhes</h2>
+        <p>Tudo o que você ganha ao ser um sócio RDC.</p>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Benefícios</th>
+              <th>Gold</th>
+              <th>Platinum</th>
+              <th>Black</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Diárias Anuais</td>
+              <td>7</td>
+              <td>14</td>
+              <td>21</td>
+            </tr>
+            <tr>
+              <td>Hotéis 5 Estrelas</td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+            </tr>
+            <tr>
+              <td>Upgrade de Categoria</td>
+              <td>-</td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+            </tr>
+            <tr>
+              <td>Atendimento Exclusivo</td>
+              <td>-</td>
+              <td>-</td>
+              <td><rdc-icon name="check" [size]="20" color="#10B981"></rdc-icon></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

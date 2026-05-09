@@ -1,0 +1,22 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <rdc-logo variant="light" [size]="36" />
+      <p class="footer-tagline">
+        Sua próxima viagem começa aqui. Assine um plano e transforme o jeito como você viaja.
+      </p>
+    </div>
+    @for (col of cols; track col.title) {
+      <div class="footer-col">
+        <div class="footer-col-title">{{ col.title }}</div>
+        @for (link of col.links; track link) {
+          <a href="#" class="footer-link">{{ link }}</a>
+        }
+      </div>
+    }
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RDC Viagens · CNPJ 00.000.000/0001-00</span>
+    <span>Feito com ♥ no Brasil</span>
+  </div>
+</footer>

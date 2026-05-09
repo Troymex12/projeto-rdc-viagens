@@ -1,0 +1,15 @@
+<div class="calendar-grid">
+  @for (d of weekDays; track d + $index) {
+    <div class="weekday">{{ d }}</div>
+  }
+  @for (cell of days; track $index) {
+    <div class="cal-cell" [class.cal-cell-active]="cell.day !== null">
+      @if (cell.day !== null) {
+        <span class="cal-day">{{ cell.day }}</span>
+        @if (cell.state) {
+          <div class="cal-bar" [style.background]="barColor(cell.state)"></div>
+        }
+      }
+    </div>
+  }
+</div>

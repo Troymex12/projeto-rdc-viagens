@@ -1,0 +1,63 @@
+.busca-body {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: 260px 1fr 400px;
+  gap: 20px;
+  align-items: start;
+}
+
+.busca-filters {
+  /* sticky é feito no sidebar-card internamente */
+  position: sticky;
+  top: 24px;
+}
+
+.busca-results {
+  min-width: 0;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.results-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #0A2540;
+}
+
+.results-meta {
+  font-size: 13px;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #1A1A1A;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 150ms;
+
+  &:focus { border-color: #00A8A8; }
+}
+
+.results-list {
+  display: grid;
+  gap: 14px;
+}
+
+.busca-map {
+  /* MapPanel já é sticky internamente */
+}

@@ -1,0 +1,130 @@
+:host { display: block; }
+
+.hotel-row {
+  display: grid;
+  grid-template-columns: 260px 1fr auto;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.06), 0 2px 4px rgba(10,37,64,0.04);
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(.2,0,0,1);
+  outline: 2px solid transparent;
+
+  &:hover {
+    box-shadow: 0 12px 32px rgba(10,37,64,0.08), 0 4px 12px rgba(10,37,64,0.04);
+    transform: translateY(-2px);
+  }
+
+  &.hotel-row-selected {
+    outline-color: #00A8A8;
+  }
+}
+
+.hotel-photo {
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+}
+
+.hotel-details {
+  padding: 20px 24px;
+}
+
+.hotel-badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.hotel-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.hotel-location {
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hotel-amenities {
+  display: flex;
+  gap: 14px;
+  color: #6B7280;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hotel-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.rating-badge {
+  background: #00A8A8;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.rating-label {
+  color: #1A1A1A;
+  font-weight: 600;
+}
+
+.rating-reviews {
+  color: #6B7280;
+}
+
+/* Price block */
+.hotel-price-block {
+  padding: 20px 24px;
+  border-left: 1px dashed #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+  text-align: right;
+}
+
+.price-meta {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.price-old {
+  font-size: 13px;
+  color: #9CA3AF;
+  text-decoration: line-through;
+}
+
+.price-main {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: #0A2540;
+  line-height: 1.1;
+}
+
+.price-nights {
+  font-size: 12px;
+  color: #008F8F;
+  font-weight: 600;
+  margin-top: 4px;
+}

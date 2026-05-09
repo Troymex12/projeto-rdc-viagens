@@ -1,0 +1,129 @@
+<div class="hotel-page">
+  <!-- Hero Section -->
+  <section class="hotel-hero">
+    <div class="hero-bg" style="background-image: url('assets/hotel-hero.png');"></div>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <div class="container">
+        <button class="back-btn" (click)="goBack()">
+          <rdc-icon name="arrowLeft" [size]="18"></rdc-icon>
+          Voltar
+        </button>
+
+        <div class="hero-header">
+          <div class="hero-main">
+            <rdc-badge variant="info" icon="star">Destaque RDC</rdc-badge>
+            <h1>{{ hotel.name }}</h1>
+            <div class="hotel-meta">
+              <div class="meta-item">
+                <rdc-icon name="pin" [size]="18"></rdc-icon>
+                <span>{{ hotel.location }}</span>
+              </div>
+              <div class="meta-item">
+                <rdc-icon name="star" [size]="18" color="#FF7A00"></rdc-icon>
+                <span><strong>{{ hotel.rating }}</strong> ({{ hotel.reviews }} avaliações)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="hotel-layout">
+      <!-- Left side: Info -->
+      <div class="hotel-info">
+        <section class="info-section">
+          <h2>Sobre o hotel</h2>
+          <p class="description">{{ hotel.description }}</p>
+        </section>
+
+        <section class="info-section">
+          <h2>Comodidades</h2>
+          <div class="amenities-grid">
+            @for (a of hotel.amenities; track a.label) {
+              <div class="amenity-item">
+                <div class="amenity-icon">
+                  <rdc-icon [name]="a.icon" [size]="20"></rdc-icon>
+                </div>
+                <span>{{ a.label }}</span>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section class="info-section">
+          <h2>Escolha sua acomodação</h2>
+          <div class="rooms-list">
+            @for (room of hotel.rooms; track room.name) {
+              <div class="room-card" [class.selected]="selectedRoom === room" (click)="selectedRoom = room">
+                <div class="room-img" [style.background-image]="'url(' + room.image + ')'"></div>
+                <div class="room-details">
+                  <h3>{{ room.name }}</h3>
+                  <p>{{ room.description }}</p>
+                  <div class="room-footer">
+                    <span class="room-price" *ngIf="room.price > 0">
+                      + R$ {{ room.price }} <span>/noite (Upgrade)</span>
+                    </span>
+                    <span class="room-price inclusa" *ngIf="room.price === 0">
+                      Inclusa no seu plano
+                    </span>
+                    <div class="selection-check">
+                      <rdc-icon [name]="selectedRoom === room ? 'checkCircle' : 'circle'" [size]="24"></rdc-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+
+      <!-- Right side: Sticky Booking Card -->
+      <aside class="hotel-sidebar">
+        <div class="booking-card">
+          <div class="booking-price">
+            <span class="price-label">Sua estadia com RDC</span>
+            <div class="price-row">
+              <span class="price-value">7 noites</span>
+              <span class="price-sub">utilizadas do plano</span>
+            </div>
+          </div>
+
+          <div class="booking-details">
+            <div class="detail-row">
+              <span>Hóspedes</span>
+              <strong>2 Adultos, 1 Criança</strong>
+            </div>
+            <div class="detail-row">
+              <span>Acomodação</span>
+              <strong>{{ selectedRoom.name }}</strong>
+            </div>
+            <div class="detail-row" *ngIf="selectedRoom.price > 0">
+              <span>Valor do Upgrade</span>
+              <strong>R$ {{ selectedRoom.price * 7 }} (Total)</strong>
+            </div>
+          </div>
+
+          <rdc-button variant="primary" size="lg" style="width: 100%; margin-top: 24px;" (onClick)="goBooking()">
+            Reservar agora
+          </rdc-button>
+          
+          <p class="booking-note">
+            <rdc-icon name="info" [size]="14"></rdc-icon>
+            Confirmação imediata e voucher digital.
+          </p>
+        </div>
+
+        <div class="help-card">
+          <h4>Precisa de ajuda?</h4>
+          <p>Nossos consultores estão prontos para ajudar com sua reserva.</p>
+          <rdc-button variant="ghost" leadingIcon="phone" size="sm">Falar com especialista</rdc-button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

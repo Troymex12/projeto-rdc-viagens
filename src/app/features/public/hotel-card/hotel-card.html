@@ -1,0 +1,33 @@
+<rdc-card [padding]="0" [hover]="true" class="hotel-card" (click)="goDetails()">
+  <div class="hotel-photo" [style.backgroundImage]="'url(' + image + ')'">
+    @if (badge) {
+      <div class="hotel-badge">
+        <rdc-badge [variant]="$any(badge.variant)">{{ badge.label }}</rdc-badge>
+      </div>
+    }
+    <button class="fav-btn" (click)="toggleFav($event)" type="button">
+      <rdc-icon name="heart" [size]="18"
+        [color]="fav ? '#FF7A00' : '#0A2540'"
+        [strokeWidth]="2"
+        [style.fill]="fav ? '#FF7A00' : 'none'" />
+    </button>
+  </div>
+  <div class="hotel-info">
+    <div class="hotel-rating">
+      <rdc-icon name="star" [size]="13" color="#D4A017" />
+      <span class="rating-value">{{ rating }}</span>
+      <span class="rating-reviews">· {{ reviews }} avaliações</span>
+    </div>
+    <div class="hotel-name">{{ name }}</div>
+    <div class="hotel-location">{{ location }}</div>
+    <div class="hotel-price-row">
+      <div>
+        <span class="hotel-price">R$ {{ price }}</span>
+        <span class="hotel-price-unit">/noite</span>
+      </div>
+      @if (nights) {
+        <div class="hotel-nights">ou {{ nights }}</div>
+      }
+    </div>
+  </div>
+</rdc-card>

@@ -1,0 +1,38 @@
+<app-search-header />
+
+<div class="busca-body">
+  <!-- Filtros -->
+  <aside class="busca-filters">
+    <app-filter-sidebar />
+  </aside>
+
+  <!-- Lista de resultados -->
+  <main class="busca-results">
+    <div class="results-header">
+      <div>
+        <div class="results-title">236 hotéis em Jericoacoara</div>
+        <div class="results-meta">15–18 mai · 2 adultos · 3 noites</div>
+      </div>
+      <select class="sort-select" [(ngModel)]="sortSelected">
+        @for (opt of sortOptions; track opt) {
+          <option [value]="opt">{{ opt }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="results-list">
+      @for (hotel of hotels; track hotel.name; let i = $index) {
+        <app-hotel-row
+          [hotel]="hotel"
+          [selected]="selectedIndex === i"
+          (rowClick)="selectHotel(i)"
+        />
+      }
+    </div>
+  </main>
+
+  <!-- Mapa -->
+  <aside class="busca-map">
+    <app-map-panel [selectedIndex]="selectedIndex" />
+  </aside>
+</div>

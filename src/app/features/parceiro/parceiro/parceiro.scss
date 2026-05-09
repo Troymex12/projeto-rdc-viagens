@@ -1,0 +1,362 @@
+.parceiro-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.parceiro-main {
+  flex: 1;
+  min-width: 0;
+  background: #F7F9FC;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #1A1A1A;
+    margin: 0;
+  }
+}
+
+.page-sub {
+  color: #6B7280;
+  font-size: 14px;
+  margin: 4px 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* KPIs */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.kpi-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.06), 0 2px 4px rgba(10,37,64,0.04);
+}
+
+.kpi-label {
+  font-size: 12px;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+}
+
+.kpi-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: #0A2540;
+  margin-top: 6px;
+  letter-spacing: -.02em;
+}
+
+.kpi-delta {
+  font-size: 12px;
+  color: #10B981;
+  font-weight: 600;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Content grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Generic card */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.06), 0 2px 4px rgba(10,37,64,0.04);
+}
+
+/* Calendar card header */
+.cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+
+  h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #1A1A1A;
+    margin: 0;
+  }
+}
+
+.cal-sub {
+  color: #6B7280;
+  font-size: 13px;
+  margin: 4px 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.legend {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Recent reservations */
+.res-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1A1A1A;
+  margin: 0 0 16px;
+}
+
+.res-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F1F4F8;
+
+  &:last-child { border-bottom: none; }
+}
+
+.res-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #CEDCEC;
+  color: #0A2540;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  flex-shrink: 0;
+}
+
+.res-info { flex: 1; }
+
+.res-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #1A1A1A;
+  font-family: 'Inter', sans-serif;
+}
+
+.res-dates {
+  font-size: 12px;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-actions { display: flex; gap: 8px; align-items: center; }
+.filter-bar { display: flex; gap: 10px; align-items: center; rdc-input { flex: 1; display: block; } }
+.action-cell { text-align: right; }
+.sub-cell { color: #6B7280; font-size: 13px; }
+
+/* Mes tabs */
+.mes-tabs { display: flex; gap: 6px; }
+.mes-tab {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  background: #F1F4F8;
+  cursor: pointer;
+  transition: all 150ms;
+  &:hover { background: #E8EFF7; color: #0A2540; }
+  &.active { background: #0A2540; color: #fff; }
+}
+
+/* Quartos grid */
+.quartos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+.quarto-card { display: flex; flex-direction: column; gap: 12px; }
+
+.quarto-header { display: flex; justify-content: space-between; align-items: center; }
+.quarto-tipo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: #0A2540; }
+
+.quarto-stats { display: flex; gap: 16px; }
+.quarto-stat { display: flex; flex-direction: column; gap: 2px; }
+.qs-val { font-size: 18px; font-weight: 700; color: #1A1A1A; }
+.qs-label { font-size: 11px; color: #6B7280; }
+
+.disp-bar-bg { height: 6px; background: #F1F4F8; border-radius: 999px; overflow: hidden; }
+.disp-bar-fill { height: 100%; border-radius: 999px; transition: width 400ms; }
+.disp-pct { font-size: 11px; color: #6B7280; }
+
+/* Regras */
+.card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; color: #1A1A1A; margin: 0 0 16px; }
+
+.regras-list { display: flex; flex-direction: column; }
+.regra-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #F1F4F8;
+  &:last-child { border-bottom: none; }
+}
+.regra-label { font-size: 13px; font-weight: 600; color: #1A1A1A; }
+.regra-desc  { font-size: 12px; color: #6B7280; margin-top: 2px; }
+.regra-val   { font-size: 13px; font-weight: 600; color: #0A2540; }
+
+/* Desconto banner */
+.desconto-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #FDF8E7, #FFF4E8);
+  border: 1.5px solid #FFD09E;
+}
+.desconto-title { font-size: 14px; font-weight: 700; color: #8F4500; }
+.desconto-sub   { font-size: 13px; color: #B85A00; margin-top: 4px; flex: 1; }
+.desconto-badge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #D4A017;
+  flex-shrink: 0;
+}
+
+/* Parceiro table */
+.card-flush { padding: 0; overflow: hidden; }
+
+.parceiro-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+
+  thead tr { background: #F7F9FC; }
+  th {
+    text-align: left;
+    padding: 10px 20px;
+    color: #6B7280;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 600;
+  }
+  tbody tr {
+    border-bottom: 1px solid #F1F4F8;
+    transition: background 120ms;
+    &:hover { background: #FAFBFC; }
+    &:last-child { border-bottom: none; }
+  }
+  td { padding: 12px 20px; vertical-align: middle; }
+}
+
+.user-cell { display: flex; align-items: center; gap: 10px; font-weight: 500; color: #1A1A1A; }
+.res-avatar-sm {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #CEDCEC;
+  color: #0A2540;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Reviews */
+.reviews-layout { display: flex; gap: 24px; align-items: flex-start; }
+
+.rating-summary-card {
+  width: 220px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.rating-big {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: #0A2540;
+  line-height: 1;
+}
+
+.rating-stars { color: #D4A017; font-size: 20px; margin: 8px 0 4px; letter-spacing: 2px; }
+.rating-label { font-size: 12px; color: #6B7280; margin-bottom: 16px; }
+
+.rating-bars { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+
+.rating-bar-row { display: flex; align-items: center; gap: 8px; }
+.rating-nota { font-size: 12px; color: #6B7280; width: 24px; flex-shrink: 0; }
+.rating-bar-bg { flex: 1; height: 6px; background: #F1F4F8; border-radius: 999px; overflow: hidden; }
+.rating-bar-fill { height: 100%; background: #D4A017; border-radius: 999px; }
+.rating-pct { font-size: 11px; color: #9CA3AF; width: 28px; text-align: right; flex-shrink: 0; }
+
+.reviews-list { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+.review-card { display: flex; flex-direction: column; gap: 12px; }
+
+.review-header { display: flex; align-items: center; justify-content: space-between; }
+.review-nota { color: #D4A017; font-size: 16px; letter-spacing: 2px; }
+.review-comentario { font-size: 14px; color: #2E3440; line-height: 1.6; margin: 0; }
+
+.review-respondida {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #10B981;
+  font-weight: 500;
+}
+
+/* Placeholder */
+.placeholder-card {
+  text-align: center;
+  padding: 48px;
+
+  h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    margin-top: 16px;
+    color: #1A1A1A;
+  }
+
+  p {
+    color: #6B7280;
+    font-size: 14px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,12 @@
+<div class="kpi-card">
+  <div class="kpi-header">
+    <span class="kpi-title">{{ title }}</span>
+    <div class="kpi-icon" [style.background]="iconBg" [style.color]="iconColor">
+      <rdc-icon [name]="icon" [size]="18" [color]="iconColor" />
+    </div>
+  </div>
+  <div class="kpi-value">
+    {{ value }}@if (valueSuffix) { <small class="kpi-suffix">{{ valueSuffix }}</small> }
+  </div>
+  <div class="kpi-sub">{{ sub }}</div>
+</div>

@@ -1,0 +1,73 @@
+.b2b-sidebar {
+  width: 220px;
+  background: #0A2540;
+  min-height: 100vh;
+  padding: 16px 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 8px 12px 20px;
+}
+
+.sidebar-section-label {
+  color: #9CB8DA;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #CEDCEC;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: all 150ms;
+
+  &:hover { background: rgba(255,255,255,.07); color: #fff; }
+}
+
+.nav-item-active {
+  background: #00A8A8;
+  color: #fff;
+}
+
+.company-card {
+  margin-top: 24px;
+  padding: 12px;
+  background: rgba(255,255,255,.06);
+  border-radius: 10px;
+  color: #CEDCEC;
+}
+
+.company-label {
+  font-size: 11px;
+  opacity: .7;
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.company-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.company-sub {
+  font-size: 11px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+}

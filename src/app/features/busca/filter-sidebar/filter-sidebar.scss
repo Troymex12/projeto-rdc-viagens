@@ -1,0 +1,115 @@
+.sidebar-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.06), 0 2px 4px rgba(10,37,64,0.04);
+}
+
+.sidebar-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #0A2540;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.filter-group {
+  padding: 16px 0;
+  border-bottom: 1px solid #F1F4F8;
+
+  &:last-child { border-bottom: none; }
+}
+
+.group-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0A2540;
+  margin-bottom: 10px;
+}
+
+/* Price range */
+.price-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6B7280;
+  margin-bottom: 6px;
+}
+
+.price-track {
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  position: relative;
+  margin: 8px 0 4px;
+}
+
+.price-fill {
+  position: absolute;
+  left: 20%;
+  right: 30%;
+  top: 0;
+  bottom: 0;
+  background: #00A8A8;
+  border-radius: 2px;
+}
+
+.price-thumb {
+  position: absolute;
+  top: -5px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border: 2px solid #00A8A8;
+  border-radius: 999px;
+  cursor: pointer;
+
+  &.price-thumb-left  { left: calc(20% - 7px); }
+  &.price-thumb-right { left: calc(70% - 7px); }
+}
+
+/* Checkboxes */
+.chk-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 13px;
+
+  &:hover .chk-box:not(.chk-checked) {
+    border-color: #9CA3AF;
+  }
+}
+
+.chk-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #D1D5DB;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 150ms;
+
+  &.chk-checked {
+    border-color: #00A8A8;
+    background: #00A8A8;
+  }
+}
+
+.chk-label {
+  flex: 1;
+  color: #1A1A1A;
+}
+
+.chk-count {
+  font-size: 12px;
+  color: #9CA3AF;
+}

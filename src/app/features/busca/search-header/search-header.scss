@@ -1,0 +1,24 @@
+.search-header {
+  background: #fff;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 32px;
+}
+
+.search-header-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.search-bar {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+  gap: 8px;
+  padding: 6px;
+  background: #F7F9FC;
+  border-radius: 12px;
+  align-items: end;
+}

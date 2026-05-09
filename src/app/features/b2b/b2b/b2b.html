@@ -1,0 +1,289 @@
+<div class="b2b-layout">
+  <app-b2b-sidebar [active]="activeSection" (nav)="activeSection = $event" />
+
+  <main class="b2b-main">
+
+    <!-- ===== DASHBOARD ===== -->
+    @if (activeSection === 'dash') {
+      <div class="page-header">
+        <div>
+          <h2>Dashboard corporativo</h2>
+          <p class="page-sub">Benefício de viagem · 42 colaboradores · plano anual</p>
+        </div>
+        <div class="page-actions">
+          <rdc-button variant="ghost" size="sm" leadingIcon="download">Relatório</rdc-button>
+          <rdc-button variant="primary" size="sm" leadingIcon="plus">Adicionar colaborador</rdc-button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        @for (k of kpis; track k.label) {
+          <div class="kpi-card">
+            <div class="kpi-label">{{ k.label }}</div>
+            <div class="kpi-value">{{ k.value }}</div>
+            <div class="kpi-sub">{{ k.sub }}</div>
+          </div>
+        }
+      </div>
+
+      <div class="card card-flush">
+        <div class="table-header">
+          <h4>Colaboradores</h4>
+          <div class="table-actions">
+            <rdc-input leadingIcon="search" placeholder="Buscar…" />
+            <rdc-button variant="primary" size="sm" leadingIcon="plus">Adicionar</rdc-button>
+          </div>
+        </div>
+        <table class="b2b-table">
+          <thead>
+            <tr>
+              @for (col of ['Nome','Departamento','Plano','Uso de noites','Status','']; track col) {
+                <th>{{ col }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (e of employees.slice(0,5); track e.name) {
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">{{ initials(e.name) }}</div><span>{{ e.name }}</span></div></td>
+                <td class="dept-cell">{{ e.dept }}</td>
+                <td><rdc-badge [variant]="e.plan === 'Superior' ? 'superior' : 'gold'" icon="star">{{ e.plan }}</rdc-badge></td>
+                <td>
+                  <div class="usage-cell">
+                    <div class="usage-bar-bg"><div class="usage-bar-fill" [style.width.%]="usagePct(e)" [style.background]="barColor(e)"></div></div>
+                    <span class="usage-label">{{ e.usedNights }}/{{ e.totalNights }}</span>
+                  </div>
+                </td>
+                <td><rdc-badge [variant]="e.status">{{ statusLabel(e.status) }}</rdc-badge></td>
+                <td class="action-cell"><rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" /></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <!-- ===== COLABORADORES ===== -->
+    @if (activeSection === 'employees') {
+      <div class="page-header">
+        <div><h2>Colaboradores</h2><p class="page-sub">{{ employees.length }} colaboradores cadastrados</p></div>
+        <div class="page-actions">
+          <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+          <rdc-button variant="primary" size="sm" leadingIcon="plus">Convidar colaborador</rdc-button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <rdc-input leadingIcon="search" placeholder="Buscar por nome ou departamento…" [(value)]="empSearch" />
+        <rdc-button variant="ghost" size="sm">Todos os planos</rdc-button>
+        <rdc-button variant="ghost" size="sm">Todos os status</rdc-button>
+      </div>
+
+      <div class="card card-flush">
+        <table class="b2b-table">
+          <thead>
+            <tr>
+              @for (col of ['Colaborador','E-mail','Depto','Plano','Uso','Status','Ações']; track col) {
+                <th>{{ col }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (e of filteredEmployees; track e.name) {
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">{{ initials(e.name) }}</div><span>{{ e.name }}</span></div></td>
+                <td class="dept-cell">{{ e.email }}</td>
+                <td class="dept-cell">{{ e.dept }}</td>
+                <td><rdc-badge [variant]="e.plan === 'Superior' ? 'superior' : 'gold'" icon="star">{{ e.plan }}</rdc-badge></td>
+                <td>
+                  <div class="usage-cell">
+                    <div class="usage-bar-bg"><div class="usage-bar-fill" [style.width.%]="usagePct(e)" [style.background]="barColor(e)"></div></div>
+                    <span class="usage-label">{{ e.usedNights }}/{{ e.totalNights }}</span>
+                  </div>
+                </td>
+                <td><rdc-badge [variant]="e.status">{{ statusLabel(e.status) }}</rdc-badge></td>
+                <td class="action-cell">
+                  <div class="row-actions">
+                    <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+                    <rdc-icon name="chevronRight" [size]="14" color="#9CA3AF" />
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <!-- ===== USO & RELATÓRIOS ===== -->
+    @if (activeSection === 'reports') {
+      <div class="page-header">
+        <div><h2>Uso & relatórios</h2><p class="page-sub">Análise de consumo de noites · 2026</p></div>
+        <div class="page-actions">
+          <rdc-button variant="ghost" size="sm" leadingIcon="calendar">2026</rdc-button>
+          <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar PDF</rdc-button>
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <div class="card">
+          <h4 class="card-title">Noites utilizadas por mês</h4>
+          <div class="bar-chart">
+            @for (i of [0,1,2,3,4]; track i) {
+              <div class="bar-col">
+                <div class="bar-wrap">
+                  <div class="bar-fill" [style.height.%]="(reportNoites[i] / 40) * 100"></div>
+                </div>
+                <div class="bar-label">{{ reportMeses[i] }}</div>
+                <div class="bar-val">{{ reportNoites[i] }}</div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 class="card-title">Uso por departamento</h4>
+          <div class="dept-list">
+            @for (d of reportDepts; track d.dept) {
+              <div class="dept-row">
+                <div class="dept-name">{{ d.dept }}</div>
+                <div class="dept-bar-bg">
+                  <div class="dept-bar-fill" [style.width.%]="(d.noites / maxNoitesDept) * 100"></div>
+                </div>
+                <div class="dept-val">{{ d.noites }} noites</div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="card report-summary">
+        <div class="summary-item"><div class="summary-val">148</div><div class="summary-label">Total de noites utilizadas</div></div>
+        <div class="summary-divider"></div>
+        <div class="summary-item"><div class="summary-val">35%</div><div class="summary-label">Taxa de uso (148/420)</div></div>
+        <div class="summary-divider"></div>
+        <div class="summary-item"><div class="summary-val">3,5</div><div class="summary-label">Média por colaborador</div></div>
+        <div class="summary-divider"></div>
+        <div class="summary-item"><div class="summary-val">R$ 4.340</div><div class="summary-label">Economia média/colaborador</div></div>
+      </div>
+    }
+
+    <!-- ===== FATURAMENTO ===== -->
+    @if (activeSection === 'billing') {
+      <div class="page-header">
+        <div><h2>Faturamento</h2><p class="page-sub">Contrato corporativo · TechCorp Ltda</p></div>
+        <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar NF</rdc-button>
+      </div>
+
+      <div class="billing-layout">
+        <div class="card card-flush" style="flex:1">
+          <div class="table-header"><h4>Faturas</h4></div>
+          <table class="b2b-table">
+            <thead>
+              <tr>@for (col of ['Período','Vencimento','Valor','Status','Ações']; track col) { <th>{{ col }}</th> }</tr>
+            </thead>
+            <tbody>
+              @for (f of faturas; track f.mes) {
+                <tr>
+                  <td style="font-weight:600">{{ f.mes }}</td>
+                  <td class="dept-cell">{{ f.venc }}</td>
+                  <td style="font-weight:700">{{ f.valor }}</td>
+                  <td><rdc-badge [variant]="faturaVariant(f.status)">{{ f.status }}</rdc-badge></td>
+                  <td class="action-cell"><rdc-button variant="link" size="sm">Ver fatura</rdc-button></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card contract-card">
+          <h4 class="card-title">Detalhes do contrato</h4>
+          <div class="contract-fields">
+            <div class="contract-field"><span class="cf-label">Empresa</span><span class="cf-val">{{ contratoInfo.empresa }}</span></div>
+            <div class="contract-field"><span class="cf-label">CNPJ</span><span class="cf-val">{{ contratoInfo.cnpj }}</span></div>
+            <div class="contract-field"><span class="cf-label">Vagas contratadas</span><span class="cf-val">{{ contratoInfo.vagas }}</span></div>
+            <div class="contract-field"><span class="cf-label">Plano</span><span class="cf-val">{{ contratoInfo.plano }}</span></div>
+            <div class="contract-field"><span class="cf-label">Renovação</span><span class="cf-val">{{ contratoInfo.renovacao }}</span></div>
+            <div class="contract-field"><span class="cf-label">Responsável</span><span class="cf-val">{{ contratoInfo.responsavel }}</span></div>
+          </div>
+          <rdc-button variant="ghost" size="sm" style="margin-top:16px;width:100%">Solicitar alteração</rdc-button>
+        </div>
+      </div>
+    }
+
+    <!-- ===== CONFIGURAÇÕES ===== -->
+    @if (activeSection === 'settings') {
+      <div class="page-header">
+        <div><h2>Configurações</h2><p class="page-sub">Preferências do portal corporativo</p></div>
+      </div>
+
+      <div class="settings-col">
+        <div class="card">
+          <h4 class="card-title">Notificações</h4>
+          <div class="settings-list">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-title">Relatório mensal por e-mail</div>
+                <div class="setting-desc">Resumo de uso enviado ao RH todo dia 1</div>
+              </div>
+              <div class="toggle" [class.on]="notifRelatorio" (click)="notifRelatorio = !notifRelatorio">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-title">Alertas de noites expirando</div>
+                <div class="setting-desc">Aviso quando colaboradores tiverem noites próximas ao vencimento</div>
+              </div>
+              <div class="toggle" [class.on]="notifEmail" (click)="notifEmail = !notifEmail">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 class="card-title">Políticas de uso</h4>
+          <div class="settings-list">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-title">Renovação automática do contrato</div>
+                <div class="setting-desc">Renova anualmente sem necessidade de nova assinatura</div>
+              </div>
+              <div class="toggle" [class.on]="autoRenovacao" (click)="autoRenovacao = !autoRenovacao">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-title">Colaboradores podem fazer upgrade de plano</div>
+                <div class="setting-desc">Permite que colaboradores upgrades pagando a diferença</div>
+              </div>
+              <div class="toggle" [class.on]="permiteUpgrade" (click)="permiteUpgrade = !permiteUpgrade">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 class="card-title">Administradores</h4>
+          <div class="admin-list">
+            <div class="admin-row">
+              <div class="user-cell">
+                <div class="user-avatar">FR</div>
+                <div>
+                  <div style="font-weight:600;font-size:13px">Fernanda Rocha</div>
+                  <div style="font-size:12px;color:#6B7280">fernanda@empresa.com</div>
+                </div>
+              </div>
+              <rdc-badge variant="superior">Admin</rdc-badge>
+            </div>
+          </div>
+          <rdc-button variant="ghost" size="sm" leadingIcon="plus" style="margin-top:12px">Adicionar admin</rdc-button>
+        </div>
+      </div>
+    }
+
+  </main>
+</div>

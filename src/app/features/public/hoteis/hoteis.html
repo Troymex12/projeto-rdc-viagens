@@ -1,0 +1,47 @@
+<app-navbar active="hoteis" />
+
+<section class="section" style="padding-top: 48px;">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>Hotéis conveniados</h2>
+      <p>Explore a rede de hotéis participantes e encontre opções para usar suas noites e pontos.</p>
+    </div>
+
+    <div class="toolbar">
+      <input
+        class="search"
+        type="text"
+        [(ngModel)]="q"
+        placeholder="Buscar por hotel, cidade ou estado"
+        aria-label="Buscar hotéis conveniados" />
+
+      <div class="toolbar-actions">
+        <rdc-button variant="secondary" size="md" [routerLink]="['/busca']">
+          Ir para busca
+        </rdc-button>
+        <rdc-button variant="primary" size="md" [routerLink]="['/checkout']">
+          Assinar plano
+        </rdc-button>
+      </div>
+    </div>
+
+    <div class="count">{{ filtered.length }} hotéis encontrados</div>
+
+    <div class="hotels-grid">
+      @for (h of filtered; track h.name) {
+        <app-hotel-card
+          [image]="h.image"
+          [name]="h.name"
+          [location]="h.location"
+          [rating]="h.rating"
+          [reviews]="h.reviews"
+          [price]="h.price"
+          [nights]="h.nights"
+          [badge]="h.badge"
+          [favorited]="h.favorited"
+        />
+      }
+    </div>
+  </div>
+</section>
+

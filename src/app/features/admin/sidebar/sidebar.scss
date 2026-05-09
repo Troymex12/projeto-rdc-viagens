@@ -1,0 +1,49 @@
+.admin-sidebar {
+  width: 220px;
+  background: #061A2E;
+  min-height: 100vh;
+  padding: 16px 10px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  padding: 8px 12px 20px;
+}
+
+.sidebar-section-label {
+  color: #6391C4;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #9CB8DA;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin-bottom: 2px;
+  border-left: 2px solid transparent;
+  transition: all 150ms;
+
+  &:hover {
+    color: #fff;
+    background: rgba(0,168,168,.1);
+  }
+}
+
+.nav-item-active {
+  color: #fff;
+  background: rgba(0,168,168,.2);
+  border-left-color: #00A8A8;
+}

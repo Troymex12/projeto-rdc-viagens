@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---------- BRAND COLORS ---------- */
+  --rdc-primary-900: #061A2E;
+  --rdc-primary-800: #0A2540;
+  --rdc-primary-700: #13365A;
+  --rdc-primary-600: #1E4B7A;
+  --rdc-primary-500: #2F6BA8;
+  --rdc-primary-400: #6391C4;
+  --rdc-primary-300: #9CB8DA;
+  --rdc-primary-200: #CEDCEC;
+  --rdc-primary-100: #E8EFF7;
+  --rdc-primary-50:  #F3F7FC;
+
+  --rdc-secondary-900: #003F3F;
+  --rdc-secondary-800: #005757;
+  --rdc-secondary-700: #007878;
+  --rdc-secondary-600: #008F8F;
+  --rdc-secondary-500: #00A8A8;
+  --rdc-secondary-400: #3BBEBE;
+  --rdc-secondary-300: #7DD4D4;
+  --rdc-secondary-200: #B5E8E8;
+  --rdc-secondary-100: #DDF4F4;
+  --rdc-secondary-50:  #F0FAFA;
+
+  --rdc-accent-900: #6B3300;
+  --rdc-accent-800: #8F4500;
+  --rdc-accent-700: #B85A00;
+  --rdc-accent-600: #DC6800;
+  --rdc-accent-500: #FF7A00;
+  --rdc-accent-400: #FF9533;
+  --rdc-accent-300: #FFB269;
+  --rdc-accent-200: #FFD09E;
+  --rdc-accent-100: #FFE6CC;
+  --rdc-accent-50:  #FFF4E8;
+
+  /* ---------- NEUTRALS ---------- */
+  --rdc-gray-900: #0F1419;
+  --rdc-gray-800: #1A1A1A;
+  --rdc-gray-700: #2E3440;
+  --rdc-gray-600: #4B5563;
+  --rdc-gray-500: #6B7280;
+  --rdc-gray-400: #9CA3AF;
+  --rdc-gray-300: #D1D5DB;
+  --rdc-gray-200: #E5E7EB;
+  --rdc-gray-150: #EEF1F5;
+  --rdc-gray-100: #F1F4F8;
+  --rdc-gray-50:  #F7F9FC;
+  --rdc-white:    #FFFFFF;
+
+  /* ---------- SEMANTIC ---------- */
+  --rdc-success-500: #10B981;
+  --rdc-success-100: #D1FAE5;
+  --rdc-success-50:  #ECFDF5;
+  --rdc-warning-500: #F59E0B;
+  --rdc-warning-100: #FEF3C7;
+  --rdc-warning-50:  #FFFBEB;
+  --rdc-error-500:   #EF4444;
+  --rdc-error-100:   #FEE2E2;
+  --rdc-error-50:    #FEF2F2;
+  --rdc-info-500:    #3B82F6;
+  --rdc-info-100:    #DBEAFE;
+  --rdc-info-50:     #EFF6FF;
+
+  --rdc-gold-500: #D4A017;
+  --rdc-gold-100: #FAEFC9;
+  --rdc-gold-gradient: linear-gradient(135deg, #F5C84B 0%, #D4A017 100%);
+  --rdc-superior-gradient: linear-gradient(135deg, #1E4B7A 0%, #0A2540 100%);
+
+  /* ---------- SEMANTIC ROLES ---------- */
+  --rdc-bg: var(--rdc-gray-50);
+  --rdc-surface: var(--rdc-white);
+  --rdc-surface-muted: var(--rdc-gray-100);
+  --rdc-border: var(--rdc-gray-200);
+  --rdc-border-strong: var(--rdc-gray-300);
+  --rdc-fg: var(--rdc-gray-800);
+  --rdc-fg-secondary: var(--rdc-gray-500);
+  --rdc-fg-muted: var(--rdc-gray-400);
+  --rdc-fg-on-primary: #FFFFFF;
+  --rdc-fg-on-accent: #FFFFFF;
+  --rdc-link: var(--rdc-primary-800);
+  --rdc-focus-ring: 0 0 0 3px rgba(0, 168, 168, 0.35);
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --rdc-font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --rdc-font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --rdc-font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --rdc-text-xs:   12px;
+  --rdc-text-sm:   14px;
+  --rdc-text-base: 16px;
+  --rdc-text-md:   18px;
+  --rdc-text-lg:   20px;
+  --rdc-text-xl:   24px;
+  --rdc-text-2xl:  30px;
+  --rdc-text-3xl:  36px;
+  --rdc-text-4xl:  48px;
+  --rdc-text-5xl:  60px;
+  --rdc-text-6xl:  72px;
+
+  --rdc-fw-regular: 400;
+  --rdc-fw-medium: 500;
+  --rdc-fw-semibold: 600;
+  --rdc-fw-bold: 700;
+  --rdc-fw-extrabold: 800;
+
+  --rdc-lh-tight: 1.15;
+  --rdc-lh-snug: 1.3;
+  --rdc-lh-normal: 1.5;
+  --rdc-lh-relaxed: 1.65;
+
+  --rdc-ls-tight: -0.02em;
+  --rdc-ls-snug: -0.01em;
+  --rdc-ls-normal: 0;
+  --rdc-ls-wide: 0.04em;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --rdc-space-0: 0;
+  --rdc-space-1: 4px;
+  --rdc-space-2: 8px;
+  --rdc-space-3: 12px;
+  --rdc-space-4: 16px;
+  --rdc-space-5: 20px;
+  --rdc-space-6: 24px;
+  --rdc-space-8: 32px;
+  --rdc-space-10: 40px;
+  --rdc-space-12: 48px;
+  --rdc-space-16: 64px;
+  --rdc-space-20: 80px;
+  --rdc-space-24: 96px;
+
+  /* ---------- RADII ---------- */
+  --rdc-radius-xs: 4px;
+  --rdc-radius-sm: 8px;
+  --rdc-radius-md: 12px;
+  --rdc-radius-lg: 16px;
+  --rdc-radius-xl: 24px;
+  --rdc-radius-pill: 999px;
+
+  /* ---------- SHADOWS ---------- */
+  --rdc-shadow-xs: 0 1px 2px rgba(10, 37, 64, 0.04);
+  --rdc-shadow-sm: 0 1px 3px rgba(10, 37, 64, 0.06), 0 1px 2px rgba(10, 37, 64, 0.04);
+  --rdc-shadow-md: 0 4px 12px rgba(10, 37, 64, 0.06), 0 2px 4px rgba(10, 37, 64, 0.04);
+  --rdc-shadow-lg: 0 12px 32px rgba(10, 37, 64, 0.08), 0 4px 12px rgba(10, 37, 64, 0.04);
+  --rdc-shadow-xl: 0 24px 56px rgba(10, 37, 64, 0.12), 0 8px 20px rgba(10, 37, 64, 0.06);
+  --rdc-shadow-accent: 0 8px 20px rgba(255, 122, 0, 0.25);
+  --rdc-shadow-focus: 0 0 0 3px rgba(0, 168, 168, 0.25);
+
+  /* ---------- MOTION ---------- */
+  --rdc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rdc-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --rdc-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --rdc-dur-fast: 120ms;
+  --rdc-dur-base: 200ms;
+  --rdc-dur-slow: 320ms;
+
+  /* ---------- LAYOUT ---------- */
+  --rdc-container: 1200px;
+  --rdc-container-wide: 1360px;
+  --rdc-navbar-h: 72px;
+  --rdc-sidebar-w: 248px;
+}
+
+html {
+  font-family: var(--rdc-font-body);
+  color: var(--rdc-fg);
+  background: var(--rdc-bg);
+}
+
+body {
+  margin: 0;
+  font-size: var(--rdc-text-base);
+  line-height: var(--rdc-lh-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+h1 {
+  font-family: var(--rdc-font-display);
+  font-size: var(--rdc-text-5xl);
+  line-height: var(--rdc-lh-tight);
+  font-weight: var(--rdc-fw-extrabold);
+  letter-spacing: var(--rdc-ls-tight);
+  color: var(--rdc-fg);
+  margin: 0 0 var(--rdc-space-4);
+}
+h2 {
+  font-family: var(--rdc-font-display);
+  font-size: var(--rdc-text-3xl);
+  line-height: var(--rdc-lh-tight);
+  font-weight: var(--rdc-fw-bold);
+  letter-spacing: var(--rdc-ls-tight);
+  color: var(--rdc-fg);
+  margin: 0 0 var(--rdc-space-3);
+}
+
+p {
+  font-size: var(--rdc-text-base);
+  line-height: var(--rdc-lh-relaxed);
+  color: var(--rdc-fg);
+  margin: 0 0 var(--rdc-space-3);
+}
+
+a {
+  color: var(--rdc-link);
+  text-decoration: none;
+}
+
+.section {
+  padding: 80px 32px;
+}
+
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 48px;
+
+  h2 {
+    font-size: 42px;
+    margin: 0 0 12px;
+  }
+
+  p {
+    color: var(--rdc-fg-secondary);
+    font-size: 18px;
+    margin: 0;
+  }
+}

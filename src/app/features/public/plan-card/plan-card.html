@@ -1,0 +1,40 @@
+<div class="plan-card" [class.plan-highlighted]="highlighted" [class.plan-black]="isBlack">
+  @if (highlighted) {
+    <div class="most-popular">
+      <rdc-badge variant="promo" icon="star">Mais Popular</rdc-badge>
+    </div>
+  }
+
+  <div class="plan-band" [style.background]="bandBg" [style.color]="bandColor">
+    <rdc-icon [name]="isGold ? 'award' : (isBlack ? 'crown' : 'shield')" [size]="18" [color]="bandColor"></rdc-icon>
+    <span>Plano {{ tier }}</span>
+  </div>
+
+  <div class="plan-body">
+    <div class="plan-price-row">
+      <span class="plan-currency">R$</span>
+      <span class="plan-price">{{ price }}</span>
+      <span class="plan-period">/ {{ period }}</span>
+    </div>
+    
+    <div class="plan-annual">Ou R$ {{ anualPrice }} / ano (2 meses grátis)</div>
+
+    <ul class="plan-perks">
+      @for (perk of perks; track perk) {
+        <li class="perk-item">
+          <rdc-icon name="check" [size]="16" color="#10B981"></rdc-icon>
+          <span>{{ perk }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="plan-btn-wrap">
+      <rdc-button 
+        [variant]="highlighted ? 'primary' : 'secondary'" 
+        (onClick)="select.emit()"
+      >
+        Selecionar {{ tier }}
+      </rdc-button>
+    </div>
+  </div>
+</div>

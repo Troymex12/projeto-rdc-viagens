@@ -1,0 +1,90 @@
+<app-navbar active="empresas"></app-navbar>
+
+<main class="empresas-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="floating-blob floating-blob--1"></div>
+    <div class="floating-blob floating-blob--2"></div>
+
+    <div class="container hero-container">
+      <div class="hero-text">
+        <rdc-badge variant="info" icon="briefcase">RDC Empresas</rdc-badge>
+        <h1 class="hero-title">
+          Transforme o <span>clima organizacional</span> com o melhor <span>benefício de viagem.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Retenha talentos, premie resultados e ofereça experiências inesquecíveis para seus colaboradores com o clube de viagens líder no mercado.
+        </p>
+        
+        <div class="trust-badges">
+          <div class="trust-item">
+            <rdc-icon name="checkCircle" [size]="20"></rdc-icon>
+            <span>+2.500 empresas parceiras</span>
+          </div>
+          <div class="trust-item">
+            <rdc-icon name="checkCircle" [size]="20"></rdc-icon>
+            <span>Retenção de talentos comprovada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card-wrap">
+        <div class="contact-card">
+          <div class="card-header">
+            <h3>Solicite uma proposta</h3>
+            <p>Um consultor entrará em contato em menos de 24h.</p>
+          </div>
+          
+          <form class="contact-form">
+            <rdc-input label="Nome do Responsável" placeholder="Ex: João Silva" leadingIcon="user"></rdc-input>
+            <rdc-input label="E-mail Corporativo" placeholder="joao@empresa.com.br" type="email" leadingIcon="mail"></rdc-input>
+            <rdc-input label="Nome da Empresa" placeholder="Sua Empresa LTDA" leadingIcon="briefcase"></rdc-input>
+            <rdc-input label="Número de Colaboradores" placeholder="Ex: 50" leadingIcon="users"></rdc-input>
+            
+            <rdc-button variant="primary" size="lg" (onClick)="onSubmit()">Quero saber mais</rdc-button>
+          </form>
+          
+          <p class="privacy-note">Ao enviar, você concorda com nossa política de privacidade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Por que a RDC para sua empresa?</h2>
+        <p class="section-sub">Soluções flexíveis para todos os tamanhos de negócio.</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <rdc-icon name="trendingUp" [size]="32"></rdc-icon>
+          </div>
+          <h4>Produtividade</h4>
+          <p>Colaboradores que viajam são mais felizes, engajados e produtivos em suas funções.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <rdc-icon name="heart" [size]="32"></rdc-icon>
+          </div>
+          <h4>Employer Branding</h4>
+          <p>Destaque sua empresa no mercado com um benefício inovador e aspiracional.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <rdc-icon name="dollarSign" [size]="32"></rdc-icon>
+          </div>
+          <h4>Custo Zero</h4>
+          <p>Modelos de parceria flexíveis que se adaptam ao orçamento da sua organização.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

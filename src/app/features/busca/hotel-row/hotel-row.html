@@ -1,0 +1,46 @@
+<div class="hotel-row" [class.hotel-row-selected]="selected" (click)="rowClick.emit()">
+  <div class="hotel-photo" [style.backgroundImage]="'url(' + hotel.image + ')'"></div>
+
+  <div class="hotel-details">
+    <div class="hotel-badges">
+      @if (hotel.badge) {
+        <rdc-badge [variant]="$any(hotel.badge.variant)">{{ hotel.badge.label }}</rdc-badge>
+      }
+      <rdc-badge variant="neutral">{{ hotel.stars }}★</rdc-badge>
+    </div>
+
+    <div class="hotel-name">{{ hotel.name }}</div>
+
+    <div class="hotel-location">
+      <rdc-icon name="pin" [size]="14" color="#6B7280" />
+      {{ hotel.location }}
+    </div>
+
+    <div class="hotel-amenities">
+      @for (a of hotel.amenities; track a.icon) {
+        <span class="amenity">
+          <rdc-icon [name]="a.icon" [size]="14" color="#6B7280" />
+          {{ a.label }}
+        </span>
+      }
+    </div>
+
+    <div class="hotel-rating-row">
+      <span class="rating-badge">{{ hotel.rating }}</span>
+      <span class="rating-label">Excelente</span>
+      <span class="rating-reviews">· {{ hotel.reviews }} avaliações</span>
+    </div>
+  </div>
+
+  <div class="hotel-price-block">
+    <div>
+      <div class="price-meta">3 noites · 2 adultos</div>
+      @if (hotel.oldPrice) {
+        <div class="price-old">R$ {{ hotel.oldPrice }}</div>
+      }
+      <div class="price-main">R$ {{ hotel.price }}</div>
+      <div class="price-nights">ou {{ hotel.nights }}</div>
+    </div>
+    <rdc-button variant="primary" size="sm">Ver quartos</rdc-button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<section class="trust-strip">
+  <div class="trust-inner">
+    @for (stat of stats; track stat.l) {
+      <div class="trust-item">
+        <div class="trust-number">{{ stat.n }}</div>
+        <div class="trust-label">{{ stat.l }}</div>
+      </div>
+    }
+  </div>
+</section>

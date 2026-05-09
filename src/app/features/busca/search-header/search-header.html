@@ -1,0 +1,12 @@
+<header class="search-header">
+  <div class="search-header-inner">
+    <rdc-logo [size]="30" />
+    <div class="search-bar">
+      <rdc-input leadingIcon="pin" placeholder="Jericoacoara, CE" [(value)]="params.destino" />
+      <rdc-input leadingIcon="calendar" placeholder="15 mai" [(value)]="params.checkin" />
+      <rdc-input leadingIcon="calendar" placeholder="18 mai" [(value)]="params.checkout" />
+      <rdc-input leadingIcon="users" placeholder="2 adultos" [(value)]="params.hospedes" />
+      <rdc-button variant="primary" leadingIcon="search" (onClick)="onSearch()">Buscar</rdc-button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,15 @@
+<div class="top-bar">
+  <div>
+    <div class="top-bar-label">Portal do membro</div>
+    <div class="top-bar-section">{{ section }}</div>
+  </div>
+  <div class="top-bar-actions">
+    <button class="bell-btn" type="button">
+      <rdc-icon name="bell" [size]="18" color="#0A2540" />
+      <span class="bell-dot"></span>
+    </button>
+    <rdc-button variant="primary" size="sm" leadingIcon="search" (onClick)="goSearch()">
+      Nova reserva
+    </rdc-button>
+  </div>
+</div>

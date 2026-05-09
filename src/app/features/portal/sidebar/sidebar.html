@@ -1,0 +1,29 @@
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <rdc-logo variant="light" [size]="30" />
+  </div>
+
+  <div class="sidebar-section-label">Menu</div>
+  @for (item of menuItems; track item.id) {
+    <div class="nav-item" [class.nav-item-active]="active === item.id" (click)="nav.emit(item.id)">
+      <rdc-icon [name]="item.icon" [size]="18" />
+      {{ item.label }}
+    </div>
+  }
+
+  <div class="sidebar-section-label">Conta</div>
+  @for (item of accountItems; track item.id) {
+    <div class="nav-item" [class.nav-item-active]="active === item.id" (click)="nav.emit(item.id)">
+      <rdc-icon [name]="item.icon" [size]="18" />
+      {{ item.label }}
+    </div>
+  }
+
+  <div class="sidebar-user">
+    <div class="avatar">AS</div>
+    <div>
+      <div class="user-name">Ana Souza</div>
+      <div class="user-plan">Plano Superior</div>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,52 @@
+.section-white {
+  background: #fff;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.section-row-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.section-cta {
+  background: linear-gradient(135deg, #0A2540 0%, #13365A 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 680px;
+}
+
+.cta-title {
+  color: #fff;
+  font-size: 42px;
+  margin: 0 0 16px;
+}
+
+.cta-subtitle {
+  color: #CEDCEC;
+  font-size: 18px;
+  margin-bottom: 32px;
+}

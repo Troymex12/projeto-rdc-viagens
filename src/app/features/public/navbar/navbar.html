@@ -1,0 +1,28 @@
+<header class="navbar">
+  <div class="navbar-inner">
+    <rdc-logo [size]="36" />
+    <nav class="nav-links">
+      @for (link of links; track link.id) {
+        @if (link.route) {
+          <a [routerLink]="[link.route]" class="nav-link" [class.active]="active === link.id">
+            {{ link.label }}
+            @if (active === link.id) {
+              <span class="active-bar"></span>
+            }
+          </a>
+        } @else {
+          <a href="#" class="nav-link" [class.active]="active === link.id">
+            {{ link.label }}
+            @if (active === link.id) {
+              <span class="active-bar"></span>
+            }
+          </a>
+        }
+      }
+    </nav>
+    <div class="nav-actions">
+      <rdc-button variant="ghost" size="sm" (onClick)="goLogin()">Entrar</rdc-button>
+      <rdc-button variant="primary" size="sm" (onClick)="goAssinar()">Assinar agora</rdc-button>
+    </div>
+  </div>
+</header>

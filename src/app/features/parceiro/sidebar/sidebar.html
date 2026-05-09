@@ -1,0 +1,20 @@
+<aside class="parceiro-sidebar">
+  <div class="sidebar-logo">
+    <rdc-logo variant="light" [size]="28" />
+  </div>
+
+  <div class="sidebar-section-label">Hotel parceiro</div>
+
+  @for (item of items; track item.id) {
+    <div class="nav-item" [class.nav-item-active]="active === item.id" (click)="nav.emit(item.id)">
+      <rdc-icon [name]="item.icon" [size]="16" [color]="active === item.id ? '#fff' : '#CEDCEC'" />
+      <span>{{ item.label }}</span>
+    </div>
+  }
+
+  <div class="hotel-card">
+    <div class="hotel-label">Gerenciando</div>
+    <div class="hotel-name">Pousada Maré Alta</div>
+    <div class="hotel-sub">Jericoacoara, CE</div>
+  </div>
+</aside>

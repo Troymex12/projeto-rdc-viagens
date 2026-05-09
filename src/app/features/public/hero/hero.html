@@ -1,0 +1,35 @@
+<section class="hero">
+  <!-- Decorative background elements -->
+  <div class="floating-blob floating-blob--1"></div>
+  <div class="floating-blob floating-blob--2"></div>
+
+  <div class="hero-content">
+    <rdc-badge variant="promo" icon="star">Plano Gold · R$ 199/mês</rdc-badge>
+    <h1 class="hero-title">
+      Assine. Viaje. <span>Economize.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Noites em hotéis premium, pontos que viram experiências e atendimento que lembra seu nome. A partir de R$ 199/mês.
+    </p>
+    <div class="hero-cta">
+      <rdc-button variant="primary" size="lg" trailingIcon="arrowRight">Ver planos</rdc-button>
+      <rdc-button variant="ghost" size="lg" class="hero-ghost-btn">Como funciona</rdc-button>
+    </div>
+  </div>
+
+  <div class="search-bar-wrap">
+    <div class="search-bar">
+      <rdc-input label="Destino" leadingIcon="pin" placeholder="Para onde você vai?"
+        [(value)]="dest" />
+      <rdc-input label="Check-in" leadingIcon="calendar" placeholder="15 mai"
+        [(value)]="checkin" />
+      <rdc-input label="Check-out" leadingIcon="calendar" placeholder="22 mai"
+        [(value)]="checkout" />
+      <rdc-input label="Hóspedes" leadingIcon="users" placeholder="2 adultos"
+        [(value)]="guests" />
+      <div class="search-btn-wrap">
+        <rdc-button variant="primary" size="lg" leadingIcon="search" (onClick)="onSearch()">Buscar</rdc-button>
+      </div>
+    </div>
+  </div>
+</section>

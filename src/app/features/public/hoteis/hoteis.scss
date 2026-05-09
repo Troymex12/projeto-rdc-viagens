@@ -1,0 +1,65 @@
+.toolbar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 18px;
+  max-width: 980px;
+}
+
+.search {
+  width: 100%;
+  max-width: 520px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--rdc-border);
+  border-radius: 12px;
+  background: var(--rdc-surface);
+  outline: none;
+  font-family: var(--rdc-font-body);
+  font-size: 15px;
+}
+
+.search:focus {
+  box-shadow: var(--rdc-focus-ring);
+  border-color: color-mix(in srgb, var(--rdc-secondary-500) 45%, var(--rdc-border));
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.count {
+  color: var(--rdc-fg-secondary);
+  max-width: 980px;
+  margin: 0 auto 18px;
+}
+
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 980px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 720px;
+  }
+  .toolbar-actions {
+    justify-content: flex-end;
+  }
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

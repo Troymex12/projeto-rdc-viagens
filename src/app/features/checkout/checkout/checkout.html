@@ -1,0 +1,128 @@
+<main class="checkout-page">
+  <!-- Left Side: Branding/Value -->
+  <div class="checkout-brand">
+    <div class="brand-bg"></div>
+    <div class="brand-overlay"></div>
+    
+    <div class="brand-content">
+      <rdc-logo [size]="48" variant="light"></rdc-logo>
+      <div class="brand-text">
+        <h1>Quase lá!</h1>
+        <p>Você está a poucos passos de desbloquear um mundo de experiências exclusivas.</p>
+      </div>
+
+      <div class="trust-indicators">
+        <div class="trust-item">
+          <rdc-icon name="shield" [size]="20"></rdc-icon>
+          <span>Pagamento 100% Seguro</span>
+        </div>
+        <div class="trust-item">
+          <rdc-icon name="check" [size]="20"></rdc-icon>
+          <span>Cancelamento Flexível</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Process -->
+  <div class="checkout-form-side">
+    <div class="checkout-container">
+      <app-checkout-stepper [steps]="stepLabels" [current]="step"></app-checkout-stepper>
+
+      <div class="checkout-layout">
+        <!-- Main Form Area -->
+        <div class="form-main">
+          @switch (step) {
+            @case (0) {
+              <div class="step-content">
+                <h2>Escolha seu Plano</h2>
+                <div class="plan-selector">
+                  @for (p of plans | keyvalue; track p.key) {
+                    <div class="plan-option" 
+                         [class.active]="selectedPlan === p.key"
+                         (click)="selectedPlan = $any(p.key)">
+                      <div class="plan-info">
+                        <span class="plan-name">{{ p.value.tier }}</span>
+                        <span class="plan-price">R$ {{ p.value.price }}/mês</span>
+                      </div>
+                      <rdc-icon [name]="selectedPlan === p.key ? 'checkCircle' : 'circle'" [size]="24"></rdc-icon>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+            @case (1) {
+              <div class="step-content">
+                <h2>Seus Dados</h2>
+                <div class="form-grid">
+                  <rdc-input label="Nome Completo" [(ngModel)]="form.nome" leadingIcon="user"></rdc-input>
+                  <rdc-input label="E-mail" [(ngModel)]="form.email" leadingIcon="mail"></rdc-input>
+                  <rdc-input label="CPF" [(ngModel)]="form.cpf" leadingIcon="fileText"></rdc-input>
+                  <rdc-input label="Telefone" [(ngModel)]="form.telefone" leadingIcon="phone"></rdc-input>
+                </div>
+              </div>
+            }
+            @case (2) {
+              <div class="step-content">
+                <h2>Pagamento</h2>
+                <div class="method-selector">
+                  @for (m of payMethods; track m.id) {
+                    <button class="method-btn" 
+                            [class.active]="payMethod === m.id"
+                            (click)="payMethod = m.id">
+                      <rdc-icon [name]="m.icon" [size]="20"></rdc-icon>
+                      {{ m.label }}
+                    </button>
+                  }
+                </div>
+                
+                @if (payMethod === 'card') {
+                  <div class="form-grid mt-6">
+                    <rdc-input label="Número do Cartão" [(ngModel)]="form.cardNumber" leadingIcon="creditCard"></rdc-input>
+                    <rdc-input label="Nome no Cartão" [(ngModel)]="form.cardName" leadingIcon="user"></rdc-input>
+                    <rdc-input label="Validade" [(ngModel)]="form.validade" placeholder="MM/AA"></rdc-input>
+                    <rdc-input label="CVV" [(ngModel)]="form.cvv" type="password"></rdc-input>
+                  </div>
+                } @else if (payMethod === 'pix') {
+                  <div class="pix-info text-center mt-8">
+                    <rdc-icon name="qrCode" [size]="120"></rdc-icon>
+                    <p class="mt-4">O QR Code será gerado após clicar em confirmar.</p>
+                  </div>
+                }
+              </div>
+            }
+            @case (3) {
+              <div class="success-content text-center">
+                <div class="success-icon">
+                  <rdc-icon name="checkCircle" [size]="80"></rdc-icon>
+                </div>
+                <h2>Parabéns, {{ form.nome || 'Sócio' }}!</h2>
+                <p>Sua assinatura foi confirmada. Prepare as malas, seu portal de sócio já está liberado.</p>
+                <rdc-button variant="primary" size="lg" (onClick)="goPortal()">Acessar meu portal</rdc-button>
+              </div>
+            }
+          }
+
+          @if (step < 3) {
+            <div class="form-actions">
+              <rdc-button variant="ghost" (onClick)="back()" [disabled]="step === 0">Voltar</rdc-button>
+              <rdc-button variant="primary" (onClick)="next()">{{ step === 2 ? 'Finalizar Assinatura' : 'Próximo Passo' }}</rdc-button>
+            </div>
+          }
+        </div>
+
+        <!-- Sidebar Summary -->
+        @if (step < 3) {
+          <aside class="form-sidebar">
+            <app-checkout-summary [plan]="currentPlan"></app-checkout-summary>
+            
+            <div class="security-card">
+              <rdc-icon name="shield" [size]="32"></rdc-icon>
+              <p>Seus dados estão criptografados e protegidos pelos mais altos padrões de segurança.</p>
+            </div>
+          </aside>
+        }
+      </div>
+    </div>
+  </div>
+</main>

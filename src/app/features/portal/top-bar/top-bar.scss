@@ -1,0 +1,53 @@
+.top-bar {
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.top-bar-label {
+  font-size: 12px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.top-bar-section {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #0A2540;
+}
+
+.top-bar-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.bell-btn {
+  background: #F1F4F8;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background 150ms;
+
+  &:hover { background: #E8EFF7; }
+}
+
+.bell-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #FF7A00;
+}

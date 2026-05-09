@@ -1,0 +1,11 @@
+<svg viewBox="0 0 400 100" class="spark">
+  <defs>
+    <linearGradient id="spark-grad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%"   stop-color="#00A8A8" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#00A8A8" stop-opacity="0"   />
+    </linearGradient>
+  </defs>
+  <path [attr.d]="areaPath" fill="url(#spark-grad)" />
+  <path [attr.d]="linePath" stroke="#00A8A8" stroke-width="2.5" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -1,0 +1,13 @@
+<div class="metric-card">
+  <div class="metric-body">
+    <div class="metric-label">{{ label }}</div>
+    <div class="metric-value">{{ value }}</div>
+    <div class="metric-delta" [class.delta-pos]="deltaPos" [class.delta-neg]="!deltaPos">
+      <rdc-icon name="trend" [size]="12" color="currentColor" />
+      {{ delta }}
+    </div>
+  </div>
+  <div class="metric-icon">
+    <rdc-icon [name]="icon" [size]="18" color="#0A2540" />
+  </div>
+</div>

@@ -1,0 +1,281 @@
+<div class="parceiro-layout">
+  <app-parceiro-sidebar [active]="activeSection" (nav)="activeSection = $event" />
+
+  <main class="parceiro-main">
+
+    <!-- ===== DASHBOARD ===== -->
+    @if (activeSection === 'dash') {
+      <div class="page-header">
+        <div>
+          <h2>Olá, Mariana</h2>
+          <p class="page-sub">Aqui está como sua propriedade está indo em maio.</p>
+        </div>
+        <rdc-button variant="primary" leadingIcon="plus" (onClick)="activeSection = 'availability'">Atualizar disponibilidade</rdc-button>
+      </div>
+
+      <div class="kpi-grid">
+        @for (k of kpis; track k.label) {
+          <div class="kpi-card">
+            <div class="kpi-label">{{ k.label }}</div>
+            <div class="kpi-value">{{ k.value }}</div>
+            <div class="kpi-delta">{{ k.delta }}</div>
+          </div>
+        }
+      </div>
+
+      <div class="content-grid">
+        <div class="card">
+          <div class="cal-header">
+            <div>
+              <h4>Calendário de maio</h4>
+              <p class="cal-sub">Clique em um dia para editar tarifa e disponibilidade</p>
+            </div>
+            <div class="legend">
+              @for (l of legendItems; track l.label) {
+                <span class="legend-item">
+                  <span class="legend-dot" [style.background]="l.color"></span>{{ l.label }}
+                </span>
+              }
+            </div>
+          </div>
+          <app-parceiro-calendar />
+        </div>
+
+        <div class="card">
+          <h4 class="res-title">Reservas recentes</h4>
+          @for (r of recentReservations; track r.name) {
+            <div class="res-row">
+              <div class="res-avatar">{{ initials(r.name) }}</div>
+              <div class="res-info">
+                <div class="res-name">{{ r.name }}</div>
+                <div class="res-dates">{{ r.dates }}</div>
+              </div>
+              <rdc-badge [variant]="r.status">{{ statusLabel(r.status) }}</rdc-badge>
+            </div>
+          }
+          <rdc-button variant="link" trailingIcon="arrowRight" style="margin-top:12px" (onClick)="activeSection = 'reservations'">Ver todas</rdc-button>
+        </div>
+      </div>
+    }
+
+    <!-- ===== DISPONIBILIDADE ===== -->
+    @if (activeSection === 'availability') {
+      <div class="page-header">
+        <div><h2>Disponibilidade</h2><p class="page-sub">Gerencie a disponibilidade por tipo de quarto</p></div>
+        <div class="page-actions">
+          <div class="mes-tabs">
+            @for (m of meses; track m) {
+              <div class="mes-tab" [class.active]="mesSelecionado === m" (click)="mesSelecionado = m">{{ m }}</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="quartos-grid">
+        @for (q of tiposQuarto; track q.tipo) {
+          <div class="card quarto-card">
+            <div class="quarto-header">
+              <div class="quarto-tipo">{{ q.tipo }}</div>
+              <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+            </div>
+            <div class="quarto-stats">
+              <div class="quarto-stat">
+                <div class="qs-val">{{ q.disponivel }}</div>
+                <div class="qs-label">Disponíveis</div>
+              </div>
+              <div class="quarto-stat">
+                <div class="qs-val">{{ q.total }}</div>
+                <div class="qs-label">Total</div>
+              </div>
+              <div class="quarto-stat">
+                <div class="qs-val">{{ q.tarifa }}</div>
+                <div class="qs-label">Tarifa RDC</div>
+              </div>
+            </div>
+            <div class="disp-bar-bg">
+              <div class="disp-bar-fill"
+                   [style.width.%]="dispPct(q)"
+                   [style.background]="dispPct(q) > 50 ? '#10B981' : dispPct(q) > 20 ? '#F59E0B' : '#EF4444'">
+              </div>
+            </div>
+            <div class="disp-pct">{{ dispPct(q) }}% disponível</div>
+          </div>
+        }
+      </div>
+
+      <div class="card">
+        <h4 class="card-title">Regras de disponibilidade</h4>
+        <div class="regras-list">
+          <div class="regra-row">
+            <div class="regra-info">
+              <div class="regra-label">Antecedência mínima para reserva</div>
+              <div class="regra-desc">Reservas RDC devem ser feitas com antecedência mínima</div>
+            </div>
+            <div class="regra-val">48 horas</div>
+          </div>
+          <div class="regra-row">
+            <div class="regra-info">
+              <div class="regra-label">Estadia mínima</div>
+              <div class="regra-desc">Número mínimo de noites por reserva</div>
+            </div>
+            <div class="regra-val">1 noite</div>
+          </div>
+          <div class="regra-row">
+            <div class="regra-info">
+              <div class="regra-label">Bloqueio automático em feriados</div>
+              <div class="regra-desc">Bloquear disponibilidade RDC em datas especiais</div>
+            </div>
+            <div class="regra-val">Não</div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ===== TARIFAS ===== -->
+    @if (activeSection === 'rates') {
+      <div class="page-header">
+        <div><h2>Tarifas</h2><p class="page-sub">Gerencie as tarifas por temporada</p></div>
+        <rdc-button variant="primary" size="sm" leadingIcon="plus">Nova tarifa</rdc-button>
+      </div>
+
+      <div class="card desconto-banner">
+        <rdc-icon name="star" [size]="24" color="#D4A017" />
+        <div>
+          <div class="desconto-title">Desconto RDC aplicado</div>
+          <div class="desconto-sub">Seus hóspedes RDC recebem {{ descontoRDC }}% de desconto sobre a tarifa balcão. O repasse à propriedade é feito integralmente.</div>
+        </div>
+        <div class="desconto-badge">−{{ descontoRDC }}%</div>
+      </div>
+
+      <div class="card card-flush">
+        <table class="parceiro-table">
+          <thead>
+            <tr>
+              @for (col of ['Período','Datas','Standard','Deluxe','Suíte','Ações']; track col) { <th>{{ col }}</th> }
+            </tr>
+          </thead>
+          <tbody>
+            @for (t of tarifas; track t.periodo) {
+              <tr>
+                <td style="font-weight:600">{{ t.periodo }}</td>
+                <td class="sub-cell">{{ t.inicio }}</td>
+                <td>{{ t.standard }}</td>
+                <td>{{ t.deluxe }}</td>
+                <td>{{ t.suite }}</td>
+                <td class="action-cell">
+                  <rdc-button variant="ghost" size="sm">Editar</rdc-button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h4 class="card-title">Políticas de cancelamento</h4>
+        <div class="regras-list">
+          <div class="regra-row">
+            <div class="regra-info"><div class="regra-label">Cancelamento gratuito</div><div class="regra-desc">Sem custo se cancelado com antecedência</div></div>
+            <div class="regra-val">até 7 dias antes</div>
+          </div>
+          <div class="regra-row">
+            <div class="regra-info"><div class="regra-label">Cancelamento parcial</div><div class="regra-desc">Retenção de 1 diária</div></div>
+            <div class="regra-val">3–7 dias antes</div>
+          </div>
+          <div class="regra-row">
+            <div class="regra-info"><div class="regra-label">Sem reembolso</div><div class="regra-desc">Cancelamento de última hora</div></div>
+            <div class="regra-val">menos de 3 dias</div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ===== RESERVAS ===== -->
+    @if (activeSection === 'reservations') {
+      <div class="page-header">
+        <div><h2>Reservas</h2><p class="page-sub">{{ reservas.length }} reservas no período</p></div>
+        <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+      </div>
+
+      <div class="filter-bar">
+        <rdc-input leadingIcon="search" placeholder="Buscar por hóspede ou ID…" [(value)]="resSearch" />
+        <rdc-button variant="ghost" size="sm">Todos os status</rdc-button>
+      </div>
+
+      <div class="card card-flush">
+        <table class="parceiro-table">
+          <thead>
+            <tr>
+              @for (col of ['ID','Hóspede','Datas','Noites','Plano','Status','Valor']; track col) { <th>{{ col }}</th> }
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of filteredReservas; track r.id) {
+              <tr>
+                <td class="sub-cell">{{ r.id }}</td>
+                <td><div class="user-cell"><div class="res-avatar-sm">{{ initials(r.name) }}</div><span>{{ r.name }}</span></div></td>
+                <td class="sub-cell">{{ r.dates }}</td>
+                <td>{{ r.noites }}</td>
+                <td><rdc-badge [variant]="r.plano === 'Superior' ? 'superior' : 'gold'" icon="star">{{ r.plano }}</rdc-badge></td>
+                <td><rdc-badge [variant]="r.status">{{ statusLabel(r.status) }}</rdc-badge></td>
+                <td style="font-weight:700">{{ r.valor }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <!-- ===== AVALIAÇÕES ===== -->
+    @if (activeSection === 'reviews') {
+      <div class="page-header">
+        <div><h2>Avaliações</h2><p class="page-sub">{{ avaliacoes.length }} avaliações recebidas</p></div>
+        <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+      </div>
+
+      <div class="reviews-layout">
+        <div class="card rating-summary-card">
+          <div class="rating-big">{{ notaMedia }}</div>
+          <div class="rating-stars">★★★★★</div>
+          <div class="rating-label">Avaliação média</div>
+          <div class="rating-bars">
+            @for (d of distribuicao; track d.nota) {
+              <div class="rating-bar-row">
+                <span class="rating-nota">{{ d.nota }}★</span>
+                <div class="rating-bar-bg"><div class="rating-bar-fill" [style.width.%]="d.pct"></div></div>
+                <span class="rating-pct">{{ d.pct }}%</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="reviews-list">
+          @for (a of avaliacoes; track a.autor) {
+            <div class="card review-card">
+              <div class="review-header">
+                <div class="user-cell">
+                  <div class="res-avatar">{{ initials(a.autor) }}</div>
+                  <div>
+                    <div class="res-name">{{ a.autor }}</div>
+                    <div class="res-dates">{{ a.data }}</div>
+                  </div>
+                </div>
+                <div class="review-nota">{{ stars(a.nota) }}</div>
+              </div>
+              <p class="review-comentario">{{ a.comentario }}</p>
+              @if (a.respondida) {
+                <div class="review-respondida">
+                  <rdc-icon name="info" [size]="14" color="#10B981" />
+                  <span>Respondida pelo estabelecimento</span>
+                </div>
+              } @else {
+                <rdc-button variant="ghost" size="sm">Responder avaliação</rdc-button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </main>
+</div>

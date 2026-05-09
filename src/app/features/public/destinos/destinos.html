@@ -1,0 +1,37 @@
+<app-navbar active="destinos" />
+
+<section class="section" style="padding-top: 48px;">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>Destinos</h2>
+      <p>Inspiração para sua próxima viagem — explore destinos com hotéis conveniados.</p>
+    </div>
+
+    <div class="toolbar">
+      <input
+        class="search"
+        type="text"
+        [(ngModel)]="q"
+        placeholder="Buscar destinos (ex.: Rio, Nordeste, Serra...)"
+        aria-label="Buscar destinos" />
+
+      <div class="toolbar-actions">
+        <rdc-button variant="secondary" size="md" [routerLink]="['/hoteis']">
+          Ver hotéis
+        </rdc-button>
+        <rdc-button variant="primary" size="md" [routerLink]="['/busca']">
+          Buscar datas
+        </rdc-button>
+      </div>
+    </div>
+
+    <div class="count">{{ filtered.length }} destinos encontrados</div>
+
+    <div class="destinations-grid">
+      @for (d of filtered; track d.name) {
+        <app-destination-tile [image]="d.image" [name]="d.name" [hotels]="d.hotels" />
+      }
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,85 @@
+.map-container {
+  position: sticky;
+  top: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 70vh;
+  min-height: 500px;
+  background: linear-gradient(135deg, #DDF4F4 0%, #E8EFF7 100%);
+  border: 1px solid #E5E7EB;
+}
+
+.map-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: #fff;
+  color: #0A2540;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 12px rgba(10,37,64,0.15);
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: all 150ms cubic-bezier(.2,0,0,1);
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #fff;
+  }
+
+  &:hover {
+    background: #0A2540;
+    color: #fff;
+    transform: translate(-50%, -110%);
+
+    &::after { border-top-color: #0A2540; }
+  }
+
+  &.map-pin-selected {
+    background: #0A2540;
+    color: #fff;
+
+    &::after { border-top-color: #0A2540; }
+  }
+}
+
+.map-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.map-btn {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(10,37,64,0.12);
+  transition: background 150ms;
+
+  &:hover { background: #F7F9FC; }
+}

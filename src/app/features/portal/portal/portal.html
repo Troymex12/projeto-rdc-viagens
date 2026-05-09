@@ -1,0 +1,408 @@
+<div class="portal-layout">
+  <div class="floating-blob floating-blob--1"></div>
+  <div class="floating-blob floating-blob--2"></div>
+  
+  <app-portal-sidebar [active]="activeSection" (nav)="activeSection = $event" />
+
+  <main class="portal-main">
+    <app-portal-top-bar [section]="sectionTitle" />
+
+    <div class="portal-content">
+
+      <!-- ===== HOME ===== -->
+      @if (activeSection === 'home') {
+        <div class="kpi-grid">
+          <app-kpi-card title="Noites disponíveis" value="8" valueSuffix="/ 14 do plano" sub="Expiram em 31 dez" icon="hotel" iconColor="#0A2540" iconBg="#E8EFF7" />
+          <app-kpi-card title="Pontos" value="24.580" sub="+2.140 este mês" icon="star" iconColor="#8F4500" iconBg="#FFE6CC" />
+          <app-kpi-card title="Próximas viagens" value="2" sub="Próxima em 12 dias" icon="calendar" iconColor="#005757" iconBg="#DDF4F4" />
+          <app-kpi-card title="Economia no ano" value="R$ 4.280" sub="vs. tarifas públicas" icon="trend" iconColor="#065F46" iconBg="#D1FAE5" />
+        </div>
+
+        <div class="home-grid">
+          <div class="card">
+            <div class="card-header">
+              <h4>Próximas reservas</h4>
+              <rdc-button variant="link" trailingIcon="arrowRight" (onClick)="activeSection = 'res'">Ver todas</rdc-button>
+            </div>
+            @for (r of reservations.slice(0, 2); track r.name) {
+              <app-reservation-row [reservation]="r" />
+            }
+          </div>
+
+          <div class="card">
+            <h4 class="quick-title">Ações rápidas</h4>
+            <div class="quick-actions">
+              @for (a of quickActions; track a.label) {
+                @if (a.icon === 'search') {
+                  <rdc-button [variant]="a.variant" [leadingIcon]="a.icon" class="quick-btn" (onClick)="goBusca()">{{ a.label }}</rdc-button>
+                } @else if (a.icon === 'hotel') {
+                  <rdc-button [variant]="a.variant" [leadingIcon]="a.icon" class="quick-btn" (onClick)="activeSection = 'hotels'">{{ a.label }}</rdc-button>
+                } @else {
+                  <rdc-button [variant]="a.variant" [leadingIcon]="a.icon" class="quick-btn" (onClick)="activeSection = 'finance'">{{ a.label }}</rdc-button>
+                }
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-info">
+          <rdc-icon name="info" [size]="20" color="#1E40AF" [strokeWidth]="2.25" />
+          <div>
+            <div class="alert-title">Suas noites expiram em 45 dias</div>
+            <div class="alert-body">Você ainda tem 3 noites para usar. Que tal planejar uma viagem de fim de semana?</div>
+          </div>
+        </div>
+      }
+
+      <!-- ===== HOTÉIS CONVENIADOS ===== -->
+      @if (activeSection === 'hotels') {
+        <div class="card">
+          <div class="card-header">
+            <h4>Hotéis conveniados</h4>
+            <rdc-button variant="secondary" trailingIcon="arrowRight" (onClick)="goConveniados()">Ver lista completa</rdc-button>
+          </div>
+          <div class="portal-hotels-grid">
+            @for (h of conveniados; track h.name) {
+              <app-hotel-card [image]="h.image" [name]="h.name" [location]="h.location" [rating]="h.rating" [reviews]="h.reviews" [price]="h.price" [nights]="h.nights" [badge]="h.badge" [favorited]="h.favorited" />
+            }
+          </div>
+          <div class="portal-hotels-cta">
+            <rdc-button variant="primary" trailingIcon="search" (onClick)="goBusca()">Buscar datas</rdc-button>
+          </div>
+        </div>
+      }
+
+      <!-- ===== RESERVAS ===== -->
+      @if (activeSection === 'res') {
+        <div class="card">
+          <div class="res-tabs">
+            @for (tab of resTabs; track tab) {
+              <div class="res-tab" [class.res-tab-active]="activeResTab === tab" (click)="activeResTab = tab">{{ tab }}</div>
+            }
+          </div>
+          @for (r of filteredReservations; track r.name) {
+            <app-reservation-row [reservation]="r" />
+          }
+          @if (filteredReservations.length === 0) {
+            <div class="empty-state">Nenhuma reserva nesta categoria.</div>
+          }
+        </div>
+      }
+
+      <!-- ===== MINHAS NOITES ===== -->
+      @if (activeSection === 'nights') {
+        <div class="kpi-grid">
+          <app-kpi-card title="Noites restantes" [value]="noitesRestantes.toString()" [valueSuffix]="'/ ' + noitesTotal" sub="Disponíveis para uso" icon="hotel" iconColor="#0A2540" iconBg="#E8EFF7" />
+          <app-kpi-card title="Noites utilizadas" [value]="noitesUsadas.toString()" sub="Neste ciclo do plano" icon="calendar" iconColor="#005757" iconBg="#DDF4F4" />
+          <app-kpi-card title="Expiração" [value]="noitesExpiracao" sub="Renova automaticamente" icon="info" iconColor="#8F4500" iconBg="#FFE6CC" />
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h4>Consumo do plano {{ noitesPlan }}</h4>
+          </div>
+          <div class="nights-progress-wrap">
+            <div class="nights-progress-bar">
+              <div class="nights-progress-fill" [style.width.%]="noitesPct"></div>
+            </div>
+            <div class="nights-progress-label">
+              <span>{{ noitesUsadas }} noites usadas</span>
+              <span>{{ noitesPct }}%</span>
+            </div>
+          </div>
+
+          <div class="nights-alert">
+            <rdc-icon name="info" [size]="16" color="#1E40AF" />
+            <span>Noites não utilizadas <strong>não acumulam</strong> para o próximo ciclo.</span>
+          </div>
+
+          <div class="section-divider">Histórico de uso</div>
+
+          @for (h of historicoNoites; track h.hotel) {
+            <div class="nights-row">
+              <div class="nights-icon-wrap">
+                <rdc-icon name="hotel" [size]="18" color="#0A2540" />
+              </div>
+              <div class="nights-info">
+                <div class="nights-hotel">{{ h.hotel }}</div>
+                <div class="nights-local">{{ h.local }} · {{ h.data }}</div>
+              </div>
+              <div class="nights-used">−{{ h.noites }} noite{{ h.noites > 1 ? 's' : '' }}</div>
+            </div>
+          }
+        </div>
+
+        <div class="card nights-cta-card">
+          <rdc-icon name="hotel" [size]="40" color="#9CB8DA" />
+          <div>
+            <div class="nights-cta-title">Ainda tem {{ noitesRestantes }} noites disponíveis</div>
+            <div class="nights-cta-sub">Aproveite para planejar sua próxima escapada.</div>
+          </div>
+          <rdc-button variant="teal" leadingIcon="search" (onClick)="goBusca()">Buscar hotel</rdc-button>
+        </div>
+      }
+
+      <!-- ===== PONTOS ===== -->
+      @if (activeSection === 'points') {
+        <div class="kpi-grid">
+          <app-kpi-card title="Saldo de pontos" value="24.580" sub="+1.700 na última reserva" icon="star" iconColor="#8F4500" iconBg="#FFE6CC" />
+          <app-kpi-card title="A expirar" [value]="pontosProxExpiracao.toLocaleString('pt-BR')" [sub]="'Vencem em ' + pontosExpiraEm" icon="calendar" iconColor="#EF4444" iconBg="#FEE2E2" />
+          <app-kpi-card title="Total acumulado" value="43.780" sub="Desde o início do plano" icon="trend" iconColor="#065F46" iconBg="#D1FAE5" />
+        </div>
+
+        <div class="points-layout">
+          <div class="card" style="flex:1">
+            <div class="card-header">
+              <h4>Extrato de pontos</h4>
+            </div>
+            <div class="extrato-list">
+              @for (e of extrato; track e.descricao) {
+                <div class="extrato-row">
+                  <div class="extrato-icon" [class.credito]="e.tipo === 'credito'" [class.debito]="e.tipo === 'debito'">
+                    <rdc-icon [name]="e.tipo === 'credito' ? 'arrowRight' : 'arrowRight'" [size]="14" [color]="e.tipo === 'credito' ? '#10B981' : '#EF4444'" />
+                  </div>
+                  <div class="extrato-info">
+                    <div class="extrato-desc">{{ e.descricao }}</div>
+                    <div class="extrato-mes">{{ e.mes }}</div>
+                  </div>
+                  <div class="extrato-pts" [class.credito]="e.tipo === 'credito'" [class.debito]="e.tipo === 'debito'">
+                    {{ e.tipo === 'credito' ? '+' : '−' }}{{ e.pontos.toLocaleString('pt-BR') }}
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="card resgates-card">
+            <h4 class="quick-title">Resgatar pontos</h4>
+            <div class="resgates-list">
+              @for (r of resgates; track r.label) {
+                <div class="resgate-item">
+                  <div class="resgate-info">
+                    <div class="resgate-label">{{ r.label }}</div>
+                    <div class="resgate-desc">{{ r.descricao }}</div>
+                  </div>
+                  <rdc-button variant="ghost" size="sm">{{ r.pontos }}</rdc-button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ===== FINANCEIRO ===== -->
+      @if (activeSection === 'finance') {
+        <div class="finance-layout">
+          <div class="card" style="flex:1">
+            <div class="card-header">
+              <h4>Histórico de faturas</h4>
+              <rdc-button variant="ghost" size="sm" leadingIcon="download">Exportar</rdc-button>
+            </div>
+            <table class="finance-table">
+              <thead>
+                <tr>
+                  <th>Período</th>
+                  <th>Vencimento</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (f of faturas; track f.mes) {
+                  <tr>
+                    <td class="f-mes">{{ f.mes }}</td>
+                    <td class="f-data">{{ f.vencimento }}</td>
+                    <td class="f-valor">{{ f.valor }}</td>
+                    <td>
+                      <rdc-badge [variant]="faturaStatusVariant(f.status)">{{ f.status }}</rdc-badge>
+                    </td>
+                    <td>
+                      <rdc-button variant="link" size="sm">Ver fatura</rdc-button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;width:280px;flex-shrink:0">
+            <div class="card">
+              <h4 class="quick-title" style="margin-bottom:12px">Plano atual</h4>
+              <div class="plan-badge-wrap">
+                <div class="plan-badge-gold">Superior</div>
+                <div class="plan-price">R$ 229<span>/mês</span></div>
+              </div>
+              <div class="plan-details">
+                <div class="plan-detail-row"><rdc-icon name="hotel" [size]="15" color="#6B7280" /><span>14 noites por ano</span></div>
+                <div class="plan-detail-row"><rdc-icon name="star" [size]="15" color="#6B7280" /><span>440 pts/mês</span></div>
+                <div class="plan-detail-row"><rdc-icon name="calendar" [size]="15" color="#6B7280" /><span>Renovação automática</span></div>
+              </div>
+              <rdc-button variant="ghost" size="sm" style="width:100%;margin-top:12px">Alterar plano</rdc-button>
+            </div>
+
+            <div class="card">
+              <h4 class="quick-title" style="margin-bottom:12px">Forma de pagamento</h4>
+              <div class="card-pay">
+                <rdc-icon name="card" [size]="22" color="#0A2540" />
+                <div>
+                  <div class="card-pay-title">{{ cartao.bandeira }} •••• {{ cartao.final }}</div>
+                  <div class="card-pay-exp">Expira {{ cartao.expira }}</div>
+                </div>
+              </div>
+              <rdc-button variant="link" size="sm">Trocar cartão</rdc-button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ===== PERFIL ===== -->
+      @if (activeSection === 'profile') {
+        <div class="profile-layout">
+          <div class="card profile-header-card">
+            <div class="profile-avatar">{{ perfil.nome[0] }}{{ perfil.nome.split(' ')[1][0] }}</div>
+            <div class="profile-info">
+              <div class="profile-name">{{ perfil.nome }}</div>
+              <div class="profile-meta">{{ perfil.email }} · Plano {{ perfil.plano }} · {{ perfil.membro }}</div>
+            </div>
+            <rdc-button variant="ghost" size="sm" leadingIcon="edit" (onClick)="editandoPerfil = !editandoPerfil">
+              {{ editandoPerfil ? 'Cancelar' : 'Editar perfil' }}
+            </rdc-button>
+          </div>
+
+          <div class="profile-grid">
+            <div class="card">
+              <h4 class="section-label">Dados pessoais</h4>
+              <div class="profile-fields">
+                <div class="profile-field">
+                  <span class="field-label">Nome completo</span>
+                  <span class="field-value">{{ perfil.nome }}</span>
+                </div>
+                <div class="profile-field">
+                  <span class="field-label">E-mail</span>
+                  <span class="field-value">{{ perfil.email }}</span>
+                </div>
+                <div class="profile-field">
+                  <span class="field-label">Telefone</span>
+                  <span class="field-value">{{ perfil.telefone }}</span>
+                </div>
+                <div class="profile-field">
+                  <span class="field-label">CPF</span>
+                  <span class="field-value">{{ perfil.cpf }}</span>
+                </div>
+                <div class="profile-field">
+                  <span class="field-label">Data de nascimento</span>
+                  <span class="field-value">{{ perfil.nascimento }}</span>
+                </div>
+              </div>
+              @if (editandoPerfil) {
+                <rdc-button variant="primary" size="sm" style="margin-top:16px" (onClick)="editandoPerfil = false">Salvar alterações</rdc-button>
+              }
+            </div>
+
+            <div class="card">
+              <h4 class="section-label">Endereço</h4>
+              <div class="profile-fields">
+                <div class="profile-field">
+                  <span class="field-label">Cidade</span>
+                  <span class="field-value">{{ perfil.cidade }}</span>
+                </div>
+                <div class="profile-field">
+                  <span class="field-label">Estado</span>
+                  <span class="field-value">{{ perfil.estado }}</span>
+                </div>
+              </div>
+
+              <h4 class="section-label" style="margin-top:24px">Senha</h4>
+              <rdc-button variant="ghost" size="sm" leadingIcon="lock">Alterar senha</rdc-button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ===== CONFIGURAÇÕES ===== -->
+      @if (activeSection === 'settings') {
+        <div class="settings-layout">
+          <div class="card">
+            <h4 class="section-label">Notificações por e-mail</h4>
+            <div class="settings-list">
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-title">Confirmações de reserva</div>
+                  <div class="setting-desc">Receba o voucher e detalhes da reserva por e-mail</div>
+                </div>
+                <div class="toggle" [class.on]="notifEmail" (click)="notifEmail = !notifEmail">
+                  <div class="toggle-knob"></div>
+                </div>
+              </div>
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-title">Promoções e ofertas</div>
+                  <div class="setting-desc">Hotéis em destaque e tarifas especiais</div>
+                </div>
+                <div class="toggle" [class.on]="notifPromocoes" (click)="notifPromocoes = !notifPromocoes">
+                  <div class="toggle-knob"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 class="section-label">Notificações push</h4>
+            <div class="settings-list">
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-title">Alertas de noites expirando</div>
+                  <div class="setting-desc">Aviso quando suas noites estiverem prestes a vencer</div>
+                </div>
+                <div class="toggle" [class.on]="notifPush" (click)="notifPush = !notifPush">
+                  <div class="toggle-knob"></div>
+                </div>
+              </div>
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-title">SMS para confirmações</div>
+                  <div class="setting-desc">Receba SMS no check-in e check-out</div>
+                </div>
+                <div class="toggle" [class.on]="notifSms" (click)="notifSms = !notifSms">
+                  <div class="toggle-knob"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 class="section-label">Segurança</h4>
+            <div class="settings-list">
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-title">Autenticação em dois fatores</div>
+                  <div class="setting-desc">Adicione uma camada extra de segurança à sua conta</div>
+                </div>
+                <div class="toggle" [class.on]="twoFactor" (click)="twoFactor = !twoFactor">
+                  <div class="toggle-knob"></div>
+                </div>
+              </div>
+            </div>
+            <div class="settings-actions">
+              <rdc-button variant="ghost" size="sm" leadingIcon="lock">Alterar senha</rdc-button>
+              <rdc-button variant="ghost" size="sm">Sessões ativas</rdc-button>
+            </div>
+          </div>
+
+          <div class="card danger-zone">
+            <h4 class="section-label danger-label">Zona de perigo</h4>
+            <div class="danger-row">
+              <div>
+                <div class="setting-title">Cancelar assinatura</div>
+                <div class="setting-desc">Seu plano permanece ativo até o fim do período pago.</div>
+              </div>
+              <rdc-button variant="ghost" size="sm">Cancelar plano</rdc-button>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  </main>
+</div>

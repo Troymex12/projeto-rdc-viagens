@@ -1,0 +1,14 @@
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <rdc-logo variant="light" [size]="28" />
+  </div>
+
+  <div class="sidebar-section-label">Operação</div>
+
+  @for (item of items; track item.id) {
+    <div class="nav-item" [class.nav-item-active]="active === item.id" (click)="nav.emit(item.id)">
+      <rdc-icon [name]="item.icon" [size]="16" [color]="active === item.id ? '#fff' : '#9CB8DA'" />
+      <span>{{ item.label }}</span>
+    </div>
+  }
+</aside>
